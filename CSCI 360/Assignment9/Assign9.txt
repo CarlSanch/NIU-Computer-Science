@@ -1,0 +1,1538 @@
+                   J E S 2  J O B  L O G  --  S Y S T E M  2 9 6 4  --  N O D E  S V S C J E S 2
+ 
+22.54.50 JOB08934 ---- TUESDAY,   01 DEC 2020 ----
+22.54.50 JOB08934  IRR010I  USERID KC03GED  IS ASSIGNED TO THIS JOB.
+22.54.50 JOB08934  ICH70001I KC03GED  LAST ACCESS AT 22:53:58 ON TUESDAY, DECEMBER 1, 2020
+22.54.50 JOB08934  $HASP373 KC03GEDA STARTED - INIT 2    - CLASS A        - SYS 2964
+22.54.50 JOB08934  $HASP395 KC03GEDA ENDED - RC=0000
+------ JES2 JOB STATISTICS ------
+  01 DEC 2020 JOB EXECUTION DATE
+          558 CARDS READ
+        1,005 SYSOUT PRINT RECORDS
+            0 SYSOUT PUNCH RECORDS
+           96 SYSOUT SPOOL KBYTES
+         0.00 MINUTES EXECUTION TIME
+        1 //KC03GEDA JOB ,'C. SANCHEZ',MSGCLASS=H                                 JOB08934
+        2 //JSTEP01  EXEC PGM=ASSIST
+        3 //CEEOPTS DD *
+        4 //STEPLIB  DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR
+        5 //SYSPRINT DD SYSOUT=*
+        6 //SYSIN    DD *
+          //*
+          //* THE FOLLOWING IS THE INPUT DATA SET
+          //*
+        7 //FT05F001 DD DSN=KC02322.CSCI360.DATAFA20(DATA9),DISP=SHR
+          /*
+          //* THE FOLLOWING IS THE OUTPUT DATA SET
+          //*
+        8 //FT06F001 DD SYSOUT=*
+          //*
+          //* THE FOLLOWING IS THE OUTPUT DATA SET FOR MESSAGES
+          //*
+        9 //SYSPRINT DD SYSOUT=*
+       10 //
+ICH70001I KC03GED  LAST ACCESS AT 22:53:58 ON TUESDAY, DECEMBER 1, 2020
+IEFA111I KC03GEDA IS USING THE FOLLOWING JOB RELATED SETTINGS:
+         SWA=ABOVE,TIOT SIZE=32K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+IEF236I ALLOC. FOR KC03GEDA JSTEP01
+IEF237I JES2 ALLOCATED TO CEEOPTS
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSIN
+IGD103I SMS ALLOCATED TO DDNAME FT05F001
+IEF237I JES2 ALLOCATED TO FT06F001
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF142I KC03GEDA JSTEP01 - STEP WAS EXECUTED - COND CODE 0000
+IEF285I   KC03GED.KC03GEDA.JOB08934.D0000101.?         SYSIN
+IGD104I KC00NIU.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB
+IEF285I   KC03GED.KC03GEDA.JOB08934.D0000103.?         SYSOUT
+IEF285I   KC03GED.KC03GEDA.JOB08934.D0000102.?         SYSIN
+IGD104I KC02322.CSCI360.DATAFA20                     RETAINED,  DDNAME=FT05F001
+IEF285I   KC03GED.KC03GEDA.JOB08934.D0000104.?         SYSOUT
+IEF285I   KC03GED.KC03GEDA.JOB08934.D0000105.?         SYSOUT
+IEF373I STEP/JSTEP01 /START 2020336.2254
+IEF032I STEP/JSTEP01 /STOP  2020336.2254
+        CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+        VIRT:   584K  SYS:   252K  EXT:        0K  SYS:    12172K
+        ATB- REAL:                  1056K  SLOTS:                     0K
+             VIRT- ALLOC:      13M SHRD:       0M
+IEF375I  JOB/KC03GEDA/START 2020336.2254
+IEF033I  JOB/KC03GEDA/STOP  2020336.2254
+        CPU:     0 HR  00 MIN  00.01 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+TEST()
+*****************************************************************
+*                                                               *
+*  CSCI 360-2             ASSIGNMENT9                FALL 2020  *
+*                                                               *
+*  DEVELOPER NAME: CARLOS SANCHEZ                               *
+*  DATE DUE:  11/27/2020                                        *
+*                                                               *
+*****************************************************************
+$TBLNTRY DSECT               TABLE DSECT
+$TEMPNME DS    CL25          TABLE EMPLOYEE NAME
+$TEMPID  DS    PL5           TABLE PACKED EMPLOYEE ID
+$THRPAY  DS    PL3           TABLE HOURLY PAY RATE
+$THOURS  DS    PL3           TABLE HOURS WORKED
+$TDEDUCT DS    PL3           TABLE DEDUCTIONS
+$TBONUS  DS    PL3           TABLE BONUS
+*
+PAYROLL5 CSECT
+********************************************************************
+*  STANDARD ENTRY LINKAGE ESTABLISHING R12 AS BASE REGISTER
+********************************************************************
+         STM   14,12,12(13)  SAVE REGS IN CALLER'S SAVE AREA
+         LR    12,15         COPY CSECT ADDR INTO R12
+         USING PAYROLL5,12   ESTABLISH R12 AS THE BASE REG
+         LA    14,PR5SAVE    R14 POINTS TO THIS CSECT'S SAVE AREA
+         ST    14,8(,13)     STORE ADDR OF THIS CSECT'S SAVE AREA
+         ST    13,4(,14)     STORE ADDR OF CALLER'S SAVE AREA
+         LR    13,14         POINT R13 AT THIS CSECT'S SAVE AREA
+*
+         LA    11,4095(,12)  ADDING 4095 BYTES TO R11
+         LA    11,1(,11)
+         USING PAYROLL5+4096,11   R11 IS SECOND BASE REGISTER
+*
+         XREAD PERCENT,80         READ FIRST LINE CONTAINING PERCENTAGE
+         PACK  PWITHPCT(3),IWITHPCT(3)  PACK PERCENTAGE
+*
+         LA    1,PARMS1           LOADING PARMS 2 INTO R1
+         L     15,=V(BUILDTBL)    LOAD ADDRESS OF SUBPROGRAM IN R15
+         BALR  14,15              BRANCH AND LINK TO SUBPROGRAM
+*
+*         XDUMP PEMPCTR
+*
+         LA    1,PARMS2           LOADING PARMS 3 INTO R1
+         L     15,=V(PROCTBL)     LOAD ADDRESS OF SUBPROGRAM IN R15
+         BALR  14,15              BRANCH AND LINK TO SUBPROGRAM
+*
+         SR    15,15         R15 = RETURN CODE OF 0
+*
+         L     13,4(,13)     POINT R13 TO CALLER'S SAVE AREA
+         L     14,12(,13)    RESTORE REGISTER 14
+         LM    0,12,20(13)   RESTORE R0 THRU R12
+*
+         BR    14            RETURN TO CALLER
+*
+         LTORG
+*
+********************************************************************
+* THE FOLLOWING TWO LINES PUTS A LABEL ON YOUR STORAGE ON A
+* 32-BYTE BOUNDARY SO THAT YOU CAN FIND IT EASILY IN A DUMP
+********************************************************************
+*
+         ORG   PAYROLL5+((*-PAYROLL5+31)/32)*32
+         DC    C'* PROGRAM STORAGE FOR PAYROLL5 *'
+*
+PR5SAVE  DS    18F           PROGRAM'S SAVE AREA
+********************************************************************
+*
+*         PARMS FIELDS
+********************************************************************
+PARMS1   DC    A(EMPTBL)     ADDR OF EMPLOYEE TABLE
+         DC    A(PEMPCTR)    ADDR OF PACKED EMPLOYEE COUNTER
+*
+PARMS2   DC    A(EMPTBL)     ADDR OF EMPLOYEE TABLE
+         DC    A(PEMPCTR)    ADDR OF PACKED EMPLOYEE COUNTER
+         DC    A(PWITHPCT)   ADDR OF PACKED WITHHOLDING PERCENTAGE
+*
+*******************************************************************
+*
+*         PACKED DECIMAL VARIABLES
+********************************************************************
+PWITHPCT DC    PL3'0'        PACKED WITHHOLDING PCT FROM FIRST REC
+PEMPCTR  DC    PL3'0'        PACKED EMPLOYEE COUNTER (MAX 999)
+*
+EMPTBL   DS    150CL42       EMPLOYEE TABLE
+********************************************************************
+*
+*         OUTPUT FOR EMPLOYEE RECORDS
+********************************************************************
+PERCENT  DS    0H
+IWITHPCT DS    ZL3
+         DS    CL77
+********************************************************************
+*
+*        EXTERNAL SUBPROGRAM BUILDTBL
+********************************************************************
+BUILDTBL CSECT
+         STM   14,12,12(13)  SAVE REGS IN CALLER'S SAVE AREA
+         LR    12,15         COPY CSECT ADDR INTO R12
+         USING BUILDTBL,12   ESTABLISH R12 AS THE BASE REG
+         LA    14,BTSAVE     R14 POINTS TO THIS CSECT'S SAVE AREA
+         ST    14,8(,13)     STORE ADDR OF THIS CSECT'S SAVE AREA
+         ST    13,4(,14)     STORE ADDR OF CALLER'S SAVE AREA
+         LR    13,14         POINT R13 AT THIS CSECT'S SAVE AREA
+*
+         LM    2,3,0(1)      R2 = EMPLOYEE TABLE FIRST ENTRY
+*                            R3 = PEMPCTR(3)
+*
+         USING $TBLNTRY,2    ESTABLISH DSECT ADDRESSABILITY
+*
+         XREAD EMPINFO,80    READ THE FIRST INPUT RECORD
+*
+LOOP1    BNZ   ENDLOOP1
+*
+         PACK  $TEMPID(5),IEMPID(8)
+         PACK  $THRPAY(3),IHRLYPAY(5)
+         PACK  $THOURS(3),IHOURS(5)
+         PACK  $TDEDUCT(3),IDEDUCT(5)
+         PACK  $TBONUS(3),IBONUS(5)
+         MVC   $TEMPNME(25),IEMPNME
+*
+         AP    0(3,3),=PL1'1'          ADD 1 TO EMPLOYEE COUNTER
+*
+         LA    2,42(,2)      INCREMENT TABLE POINTER
+*
+         XREAD EMPINFO,80    READ THE NEXT RECORD
+*
+         B     LOOP1         BRANCH BACK TO TOP OF LOOP 1 FOR EOF
+*
+         DROP  2
+*
+ENDLOOP1 SR    15,15         R15 = RETURN CODE OF 0
+         L     13,4(,13)     POINT R13 TO CALLER'S SAVE AREA
+         L     14,12(,13)    RESTORE REGISTER 14
+         LM    0,12,20(13)   RESTORE R0 THRU R12
+*
+         BR    14            RETURN TO CALLER
+*
+         LTORG
+*
+BTSAVE   DS    18F           REGISTER SAVE AREA
+*
+EMPINFO  DS    0H
+IEMPID   DS    ZL8           PACKS INTO 5 BYTES
+IHRLYPAY DS    ZL5           PACKS INTO 3 BYTES
+IHOURS   DS    ZL5           PACKS INTO 3 BYTES
+IDEDUCT  DS    ZL5           PACKS INTO 3 BYTES
+IBONUS   DS    ZL5           PACKS INTO 3 BYTES
+IEMPNME  DS    CL25
+         DS    CL27
+********************************************************************
+*
+*        EXTERNAL SUBPROGRAM PROCTBL
+********************************************************************
+PROCTBL  CSECT
+         STM   14,12,12(13)  SAVE REGS IN CALLER'S SAVE AREA
+         LR    12,15         COPY CSECT ADDR INTO R12
+         USING PROCTBL,12    ESTABLISH R12 AS THE BASE REG
+         LA    14,PTSAVE     R14 POINTS TO THIS CSECT'S SAVE AREA
+         ST    14,8(,13)     STORE ADDR OF THIS CSECT'S SAVE AREA
+         ST    13,4(,14)     STORE ADDR OF CALLER'S SAVE AREA
+         LR    13,14         POINT R13 AT THIS CSECT'S SAVE AREA
+         LA    10,99         LINE COUNTER SET TO 99
+         LA    7,126
+*
+         LM    2,4,0(1)      R2 = EMPTBL FIRST ENTRY
+*                            R3 = PEMPCTR(3)
+*                            R4 = PWITHPCT(3)
+*
+         USING $TBLNTRY,2    ESTABLISH DSECT ADDRESSABILITY
+*
+LOOP2    CP    PCOUNTER(3),0(3,3)
+*
+         MVI   DETAIL+1,C' '            MOVE SPACE TO DETAIL LINE
+         MVC   DETAIL+2(131),DETAIL+1   MOVE SPACES TO REMAINING BYTE
+*
+         MVC   OEMPID-1(10),=X'21202060202020202020'
+         ED    OEMPID-1(10),$TEMPID     EDIT ACCT NBR INTO DETAIL
+*
+         AP    PCOUNTER(3),=PL1'1'
+         AP    PPAGECTR(2),=PL1'1'     INCREMENT PAGE COUNTER BY 1
+         ZAP   PCALC(10),$THRPAY(3)     COPY HOURLY PAY TO PCALC
+         MP    PCALC(10),$THOURS(3)     MULTIPLY HOURLY PAY BY HOURS
+         SRP   PCALC(10),64-2,5         SHIFT AND ROUND TO TWO DEC.
+         AP    PCALC(10),$TBONUS(3)     ADD BONUS TO GROSSPAY
+         SP    PCALC(10),$TDEDUCT(3)    SUBTRACT DEDUCT FROM GROSSPAY
+         ZAP   PEMPGPAY(6),PCALC+4(6)   COPY GROSS PAY INTO PEMPGPAY
+*
+         ZAP   PPERCENT(3),0(3,4)       COPY PWITHPCT TO PPERCENT
+*
+         LA    5,PARMS3           LOADING PARMS 3 INTO R5
+         L     15,=V(CALCNPAY)    LOAD ADDRESS OF SUBPROGRAM IN R15
+         BALR  14,15              BRANCH AND LINK TO SUBPROGRAM
+*
+*         AP    OTDEDUCT(8),$TDEDUCT(3)      ADD DEDUCT TO TOTAL DEDUCT
+*         AP    OTBONUS(9),$TBONUS(3)        ADD BONUS TO TOTAL BONUS
+*         AP    OTGROSS(14),PEMPGPAY(6)      ADD GROSS TO TOTAL GROSS
+*         AP    OTWITH(),PEMPWITH(6)         ADD WITH TO TOTAL WITH
+*         AP    OTNETPY(),PEMPNPAY(6)        ADD NET TO TOTAL NET PAY
+*
+         LA    6,OHRLYPAY+2
+         MVC   OHRLYPAY(7),=X'402021204B2020'
+         EDMK  OHRLYPAY(7),$THRPAY      EDIT HOURLY PAY INTO DETAIL
+         BCTR  6,0
+         MVI   0(6),C'$'
+*
+         MVC   OHOURS(7),=X'402020204B2020'
+         ED    OHOURS(7),$THOURS        EDIT HOURS WORKED INTO DETAIL
+*
+         LA    6,ODEDUCT+2
+         MVC   ODEDUCT(7),=X'402021204B2020'
+         EDMK  ODEDUCT(7),$TDEDUCT      EDIT DEDUCTIONS INTO DETAIL
+         BCTR  6,0
+         MVI   0(6),C'$'
+*
+         LA    6,OBONUS+1
+         MVC   OBONUS(7),=X'402021204B2020'
+         EDMK  OBONUS(7),$TBONUS        EDIT BONUS INTO DETAIL
+         BCTR  6,0
+         MVI   0(6),C'$'
+*
+         MVC   OEMPNME(25),$TEMPNME     MOVE EMPLOYEE NAME TO DETAIL
+*
+*
+         LA    6,OGRSSPAY+8
+         MVC   OGRSSPAY(15),=X'4020206B2020206B202021204B2020'
+         EDMK  OGRSSPAY(15),PEMPGPAY     EDIT GROSS PAY TO DETAIL
+         BCTR  6,0
+         MVI   0(6),C'$'
+*
+         LA    6,OEMPWITH+9
+         MVC   OEMPWITH(15),=X'4020206B2020206B202021204B2020'
+         EDMK  OEMPWITH(15),PEMPWITH     EDIT WITHHOLD TO DETAIL
+         BCTR  6,0
+         MVI   0(6),C'$'
+*
+         LA    6,OEMPNPAY+8
+         MVC   OEMPNPAY(15),=X'4020206B2020206B202021204B2020'
+         EDMK  OEMPNPAY(15),PEMPNPAY     EDIT NET PAY TO DETAIL
+         BCTR  6,0
+         MVI   0(6),C'$'
+*
+         MVI   DETAIL,C'0'              RESTORE CARRIAGE CONTROL
+*
+         LA    2,42(,2)      INCREMENT TABLE POINTER
+*
+         C     10,=F'16'     SHOULD WE PRINT HEADERS? IF STATEMENT
+         BL    NOHDRS        BRANCH TO PRINTING HEADERS
+*
+         MVC   OPAGECTR(2),=X'2020'
+         ED    OPAGECTR(2),PPAGECTR    ADD PAGE COUNTER TO HEADER1
+         XPRNT HEADER1,133   PRINT PAGE HEADER
+         XPRNT HEADER2,133   PRINT PAGE HEADER
+         XPRNT HEADER3,133   PRINT PAGE HEADER
+         XPRNT HEADER4,133   PRINT PAGE HEADER
+         XPRNT HEADER5,133   PRINT LAST PAGE HEADER
+         SR    10,10         ZERO OUT LINE COUNTER
+*
+NOHDRS   XPRNT DETAIL,133    PRINT THE DETAIL LINE
+         LA    10,1(,10)     INCREMENT LINE COUNTER BY 1
+*
+         B     LOOP2
+*
+ENDLOOP2 LA    7,PARMS4           LOADING PARMS 3 INTO R5
+         L     15,=V(CALCNPAY)    LOAD ADDRESS OF SUBPROGRAM IN R15
+         BALR  14,15              BRANCH AND LINK TO SUBPROGRAM
+         SR    15,15         R15 = RETURN CODE OF 0
+         L     13,4(,13)     POINT R13 TO CALLER'S SAVE AREA
+         L     14,12(,13)    RESTORE REGISTER 14
+         LM    0,12,20(13)   RESTORE R0 THRU R12
+*
+         BR    14            RETURN TO CALLER
+*
+         LTORG
+*
+PTSAVE   DS    18F           REGISTER SAVE AREA
+********************************************************************
+*
+*         PARMS FIELDS
+********************************************************************
+PARMS3   DC    A(PPERCENT)    ADDR OF PACKED PERCENTAGE
+         DC    A(PEMPGPAY)    ADDR OF PACKED EMPLOYEE GROSS PAY
+         DC    A(PEMPWITH)    ADDR OF PACKED EMPLOYEE WITHHOLDING
+         DC    A(PEMPNPAY)    ADDR OF PACKED EMPLOYEE NET PAY
+*
+PARMS4   DC    A(OTGROSS)
+         DC    A(AVGROSS)
+         DC    A(OTWITH)
+         DC    A(AVWITH)
+         DC    A(OTNETPY)
+         DC    A(AVNETPY)
+         DC    A(PPEMPCTR)
+*******************************************************************
+*
+*         PACKED DECIMAL VARIABLES
+********************************************************************
+PPAGECTR DC    PL2'0'        PACKED PAGE COUNTER (MAX 999)
+PPEMPCTR DC    PL3'0'        PACKED EMPLOYEE COUNTER (MAX 999)
+*
+PPERCENT DC    PL3'0'        PACKED PERCENTAGE
+PEMPGPAY DC    PL6'0'        PACKED CALCULATED EMPLOYEE GROSS PAY
+PEMPWITH DC    PL6'0'        PACKED CALCULATED EMPLOYEE WITHHOLDING
+PEMPNPAY DC    PL6'0'        PACKED CALCULATED EMPLOYEE NET PAY
+*
+*PTDEDCT
+*PTBONUS
+*PTGROSS
+*PTWITH
+*PTNETPY
+*
+PCALC    DC    PL10'0'       USED TO CALCULATE WITHHOLDING AND AVGS
+********************************************************************
+*
+*         OUTPUT FOR EMPLOYEE RECORDS
+********************************************************************
+DETAIL   DC    C'0'
+         DC    1C' '
+OEMPID   DS    CL8
+         DC    3C' '
+OEMPNME  DS    CL25
+         DC    3C' '
+OHRLYPAY DS    CL5
+         DC    5C' '
+OHOURS   DS    CL4
+         DC    8C' '
+ODEDUCT  DS    CL5
+         DC    5C' '
+OBONUS   DS    CL6
+         DC    4C' '
+OGRSSPAY DS    CL9
+         DC    9C' '
+OEMPWITH DS    CL10
+         DC    7C' '
+OEMPNPAY DS    CL10
+********************************************************************
+*
+*        TOTAL OF ALL FIELDS
+********************************************************************
+TOTALS1  DC    C'0'
+         DC    C'NUMBER OF EMPLOYEES:'
+OEMPCTR  DC    X'402020202120'
+         DC    108C' '
+*
+TOTALS2  DC    C'0'
+         DC    3C' '
+         DC    C'TOTAL DEDUCTIONS:'
+         DC    10C' '
+OTDEDUC  DS    CL8
+*
+TOTALS3  DC    C'0'
+         DC    6C' '
+         DC    C'TOTAL BONUSES:'
+         DC    9C' '
+OTBONUS  DS    CL9
+*
+TOTALS4  DC    C'0'
+         DC    5C' '
+         DC    C'TOTAL GROSS PAY:'
+OTGROSS  DS    CL14
+         DC    10C' '
+         DC    C'AVERAGE GROSS PAY:'
+         DC    7C' '
+AVGROSS  DS    CL10
+*
+TOTALS5  DC    C'0'
+         DC    3C' '
+         DC    C'TOTAL WITHHOLDING:'
+         DC    9C' '
+OTWITH   DC    PL10'0'
+         DC    9C' '
+         DC    C'AVERAGE WITHHOLDING:'
+         DC    9C' '
+AVWITH   DC    PL10'0'
+*
+TOTALS6  DC    C'0'
+         DC    7C' '
+         DC    C'TOTAL NET PAY:'
+         DC    8C' '
+OTNETPY  DC    PL10'0'
+         DC    12C' '
+         DC    C'AVERAGE NET PAY:'
+         DC    7C' '
+AVNETPY  DC    PL10'0'
+********************************************************************
+*
+*         PACKED TOTALS FIELDS
+********************************************************************
+PTDEDUCT DC    PL4'0'        PACKED TOTAL DEDUCTIONS
+PTBONUS  DC    PL4'0'        PACKED TOTAL BONUSES
+PTGRPAY  DC    PL7'0'        PACKED TOTAL GROSS EMPLOYEE PAY
+PTWITH   DC    PL7'0'        PACKED TOTAL WITHHOLDING
+PTNETPAY DC    PL7'0'        PACKED TOTAL NET EMPLOYEE PAY
+PCOUNTER DC    PL3'0'
+*
+HEADER1  DC    C'1'     PAGE HEADER
+         DC    49C' '
+         DC    C'FEELINGS MUTUAL INSURANCE COMPANY'
+         DC    38C' '
+         DC    C'PAGE:'
+OPAGECTR DS    PL2'0'
+*
+HEADER2  DC    C'1'
+         DC    52C' '
+         DC    C'SEMI-MONTHLY PAYROLL REPORT'
+         DC    56C' '
+*
+HEADER3  DC    C'0'
+         DC    C'EMPLOYEE'
+         DC    3C' '
+         DC    C'EMPLOYEE'
+         DC    21C' '
+         DC    C'HOURLY'
+         DC    5C' '
+         DC    C'HOURS'
+         DC    3C' '
+         DC    C'DEDUCTION'
+         DC    5C' '
+         DC    C'BONUS'
+         DC    10C' '
+         DC    C'EMPLOYEE'
+         DC    10C' '
+         DC    C'EMPLOYEE'
+         DC    10C' '
+         DC    C'EMPLOYEE'
+*
+HEADER4  DC    C'0'
+         DC    C'ID'
+         DC    9C' '
+         DC    C'NAME'
+         DC    28C' '
+         DC    C'PAY'
+         DC    4C' '
+         DC    C'WORKED'
+         DC    6C' '
+         DC    C'AMOUNT'
+         DC    4C' '
+         DC    C'AMOUNT'
+         DC    9C' '
+         DC    C'GROSS PAY'
+         DC    7C' '
+         DC    C'WITHHOLDING'
+         DC    11C' '
+         DC    C'NET PAY'
+*
+HEADER5  DC    C'0'
+         DC    C'--------'
+         DC    3C' '
+         DC    C'-------------------------'
+         DC    3C' '
+         DC    C'-------'
+         DC    3C' '
+         DC    C'-------'
+         DC    3C' '
+         DC    C'---------'
+         DC    3C' '
+         DC    C'-------'
+         DC    3C' '
+         DC    C'---------------'
+         DC    3C' '
+         DC    C'---------------'
+         DC    2C' '
+         DC    C'----------------'
+*
+********************************************************************
+*
+*        EXTERNAL SUBPROGRAM CALCNPAY
+********************************************************************
+CALCNPAY CSECT
+         STM   14,12,12(13)  SAVE REGS IN CALLER'S SAVE AREA
+         LR    12,15         COPY CSECT ADDR INTO R12
+         USING CALCNPAY,12   ESTABLISH R12 AS THE BASE REG
+         LA    14,CPSAVE     R14 POINTS TO THIS CSECT'S SAVE AREA
+         ST    14,8(,13)     STORE ADDR OF THIS CSECT'S SAVE AREA
+         ST    13,4(,14)     STORE ADDR OF CALLER'S SAVE AREA
+         LR    13,14         POINT R13 AT THIS CSECT'S SAVE AREA
+*
+*
+         LM    2,5,0(5)      R2 = PPERCENT(3)
+*                            R3 = PEMPGPAY(6)
+*                            R4 = PEMPWITH(6)
+*                            R5 = PEMPNPAY(6)
+*
+         ZAP   CCALC(9),0(6,3)         COPY GROSS PAY TO CALC
+*
+         MP    CCALC(9),0(3,2)         MULTIPLY GROSSPAY BY PWITHPCT
+         SRP   CCALC(9),64-2,5         SHIFT AND ROUND TO TWO DEC.
+         ZAP   0(6,4),CCALC+3(6)       COPY WITHHOLD TO R4
+*
+         ZAP   CCALC(9),0(6,3)         COPY GROSSPAY INTO CCALC(10)
+         SP    CCALC(9),0(6,4)         SUBTRACT WITHHOLD FROM GROSSPAY
+         ZAP   0(6,5),CCALC+3(6)       COPY NET PAY INTO R5w
+*
+         SR    15,15         R15 = RETURN CODE OF 0
+         L     13,4(,13)     POINT R13 TO CALLER'S SAVE AREA
+         L     14,12(,13)    RESTORE REGISTER 14
+         LM    0,12,20(13)   RESTORE R0 THRU R12
+*
+         BR    14            RETURN TO CALLER
+*
+         LTORG
+*
+CPSAVE   DS    18F           REGISTER SAVE AREA
+*
+CCALC    DC    PL9'0'
+*
+********************************************************************
+*
+*        EXTERNAL SUBPROGRAM CALCAVG
+********************************************************************
+CALCAVG  CSECT
+         STM   14,12,12(13)  SAVE REGS IN CALLER'S SAVE AREA
+         LR    12,15         COPY CSECT ADDR INTO R12
+         USING CALCAVG,12    ESTABLISH R12 AS THE BASE REG
+         LA    14,CASAVE     R14 POINTS TO THIS CSECT'S SAVE AREA
+         ST    14,8(,13)     STORE ADDR OF THIS CSECT'S SAVE AREA
+         ST    13,4(,14)     STORE ADDR OF CALLER'S SAVE AREA
+         LR    13,14         POINT R13 AT THIS CSECT'S SAVE AREA
+*
+         LM    2,8,0(7)      R2 = EMPTBL FIRST ENTRY
+*                            R3 = PEMPCTR(3)
+*                            R4 = PWITHPCT(3)
+*                            R5 =
+*                            R6 =
+*                            R7 =
+*                            R8 =
+*
+         SR    15,15         R15 = RETURN CODE OF 0
+         L     13,4(,13)     POINT R13 TO CALLER'S SAVE AREA
+         L     14,12(,13)    RESTORE REGISTER 14
+         LM    0,12,20(13)   RESTORE R0 THRU R12
+*
+         BR    14            RETURN TO CALLER
+*
+         LTORG
+*
+CASAVE   DS    18F           REGISTER SAVE AREA
+*
+         END   PAYROLL5
+*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT
+ 
+                                                                                                               PAGE    1
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+                                      1 *****************************************************************
+                                      2 *                                                               *
+                                      3 *  CSCI 360-2             ASSIGNMENT9                FALL 2020  *
+                                      4 *                                                               *
+                                      5 *  DEVELOPER NAME: CARLOS SANCHEZ                               *
+                                      6 *  DATE DUE:  11/27/2020                                        *
+                                      7 *                                                               *
+                                      8 *****************************************************************
+000000                                9 $TBLNTRY DSECT               TABLE DSECT
+000000                               10 $TEMPNME DS    CL25          TABLE EMPLOYEE NAME
+000019                               11 $TEMPID  DS    PL5           TABLE PACKED EMPLOYEE ID
+00001E                               12 $THRPAY  DS    PL3           TABLE HOURLY PAY RATE
+000021                               13 $THOURS  DS    PL3           TABLE HOURS WORKED
+000024                               14 $TDEDUCT DS    PL3           TABLE DEDUCTIONS
+000027                               15 $TBONUS  DS    PL3           TABLE BONUS
+                                     16 *
+000000                               17 PAYROLL5 CSECT
+                                     18 ********************************************************************
+                                     19 *  STANDARD ENTRY LINKAGE ESTABLISHING R12 AS BASE REGISTER
+                                     20 ********************************************************************
+000000 90EC D00C            0000C    21          STM   14,12,12(13)  SAVE REGS IN CALLER'S SAVE AREA
+000004 18CF                          22          LR    12,15         COPY CSECT ADDR INTO R12
+000000                               23          USING PAYROLL5,12   ESTABLISH R12 AS THE BASE REG
+000006 41E0 C080            00080    24          LA    14,PR5SAVE    R14 POINTS TO THIS CSECT'S SAVE AREA
+00000A 50E0 D008            00008    25          ST    14,8(,13)     STORE ADDR OF THIS CSECT'S SAVE AREA
+00000E 50D0 E004            00004    26          ST    13,4(,14)     STORE ADDR OF CALLER'S SAVE AREA
+000012 18DE                          27          LR    13,14         POINT R13 AT THIS CSECT'S SAVE AREA
+                                     28 *
+000014 41B0 CFFF            00FFF    29          LA    11,4095(,12)  ADDING 4095 BYTES TO R11
+000018 41B0 B001            00001    30          LA    11,1(,11)
+001000                               31          USING PAYROLL5+4096,11   R11 IS SECOND BASE REGISTER
+                                     32 *
+00001C E000 B97E 0050 0197E          33          XREAD PERCENT,80         READ FIRST LINE CONTAINING PERCENTAGE
+000022 F222 C0DC B97E 000DC 0197E    34          PACK  PWITHPCT(3),IWITHPCT(3)  PACK PERCENTAGE
+                                     35 *
+000028 4110 C0C8            000C8    36          LA    1,PARMS1           LOADING PARMS 2 INTO R1
+00002C 58F0 C050            00050    37          L     15,=V(BUILDTBL)    LOAD ADDRESS OF SUBPROGRAM IN R15
+000030 05EF                          38          BALR  14,15              BRANCH AND LINK TO SUBPROGRAM
+                                     39 *
+                                     40 *         XDUMP PEMPCTR
+                                     41 *
+000032 4110 C0D0            000D0    42          LA    1,PARMS2           LOADING PARMS 3 INTO R1
+000036 58F0 C054            00054    43          L     15,=V(PROCTBL)     LOAD ADDRESS OF SUBPROGRAM IN R15
+00003A 05EF                          44          BALR  14,15              BRANCH AND LINK TO SUBPROGRAM
+                                     45 *
+00003C 1BFF                          46          SR    15,15         R15 = RETURN CODE OF 0
+                                     47 *
+00003E 58D0 D004            00004    48          L     13,4(,13)     POINT R13 TO CALLER'S SAVE AREA
+000042 58E0 D00C            0000C    49          L     14,12(,13)    RESTORE REGISTER 14
+000046 980C D014            00014    50          LM    0,12,20(13)   RESTORE R0 THRU R12
+                                     51 *
+00004A 07FE                          52          BR    14            RETURN TO CALLER
+                                                                                                               PAGE    2
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+                                     53 *
+                                     54          LTORG
+000050 000019D0                      55                =V(BUILDTBL)
+000054 00001AE0                      56                =V(PROCTBL)
+                                     57 *
+                                     58 ********************************************************************
+                                     59 * THE FOLLOWING TWO LINES PUTS A LABEL ON YOUR STORAGE ON A
+                                     60 * 32-BYTE BOUNDARY SO THAT YOU CAN FIND IT EASILY IN A DUMP
+                                     61 ********************************************************************
+                                     62 *
+000060                               63          ORG   PAYROLL5+((*-PAYROLL5+31)/32)*32
+000060 5C40D7D9D6C7D9C1              64          DC    C'* PROGRAM STORAGE FOR PAYROLL5 *'
+                                     65 *
+000080                               66 PR5SAVE  DS    18F           PROGRAM'S SAVE AREA
+                                     67 ********************************************************************
+                                     68 *
+                                     69 *         PARMS FIELDS
+                                     70 ********************************************************************
+0000C8 000000E2                      71 PARMS1   DC    A(EMPTBL)     ADDR OF EMPLOYEE TABLE
+0000CC 000000DF                      72          DC    A(PEMPCTR)    ADDR OF PACKED EMPLOYEE COUNTER
+                                     73 *
+0000D0 000000E2                      74 PARMS2   DC    A(EMPTBL)     ADDR OF EMPLOYEE TABLE
+0000D4 000000DF                      75          DC    A(PEMPCTR)    ADDR OF PACKED EMPLOYEE COUNTER
+0000D8 000000DC                      76          DC    A(PWITHPCT)   ADDR OF PACKED WITHHOLDING PERCENTAGE
+                                     77 *
+                                     78 *******************************************************************
+                                     79 *
+                                     80 *         PACKED DECIMAL VARIABLES
+                                     81 ********************************************************************
+0000DC 00000C                        82 PWITHPCT DC    PL3'0'        PACKED WITHHOLDING PCT FROM FIRST REC
+0000DF 00000C                        83 PEMPCTR  DC    PL3'0'        PACKED EMPLOYEE COUNTER (MAX 999)
+                                     84 *
+0000E2                               85 EMPTBL   DS    150CL42       EMPLOYEE TABLE
+                                     86 ********************************************************************
+                                     87 *
+                                     88 *         OUTPUT FOR EMPLOYEE RECORDS
+                                     89 ********************************************************************
+00197E                               90 PERCENT  DS    0H
+00197E                               91 IWITHPCT DS    ZL3
+001981                               92          DS    CL77
+                                     93 ********************************************************************
+                                     94 *
+                                     95 *        EXTERNAL SUBPROGRAM BUILDTBL
+                                     96 ********************************************************************
+0019D0                               97 BUILDTBL CSECT
+0019D0 90EC D00C            0000C    98          STM   14,12,12(13)  SAVE REGS IN CALLER'S SAVE AREA
+0019D4 18CF                          99          LR    12,15         COPY CSECT ADDR INTO R12
+0019D0                              100          USING BUILDTBL,12   ESTABLISH R12 AS THE BASE REG
+0019D6 41E0 C074            01A44   101          LA    14,BTSAVE     R14 POINTS TO THIS CSECT'S SAVE AREA
+0019DA 50E0 D008            00008   102          ST    14,8(,13)     STORE ADDR OF THIS CSECT'S SAVE AREA
+0019DE 50D0 E004            00004   103          ST    13,4(,14)     STORE ADDR OF CALLER'S SAVE AREA
+0019E2 18DE                         104          LR    13,14         POINT R13 AT THIS CSECT'S SAVE AREA
+                                    105 *
+0019E4 9823 1000            00000   106          LM    2,3,0(1)      R2 = EMPLOYEE TABLE FIRST ENTRY
+                                    107 *                            R3 = PEMPCTR(3)
+                                    108 *
+000000                              109          USING $TBLNTRY,2    ESTABLISH DSECT ADDRESSABILITY
+                                                                                                               PAGE    3
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+                                    110 *
+0019E8 E000 C0BC 0050 01A8C         111          XREAD EMPINFO,80    READ THE FIRST INPUT RECORD
+                                    112 *
+0019EE 4770 C05A            01A2A   113 LOOP1    BNZ   ENDLOOP1
+                                    114 *
+0019F2 F247 2019 C0BC 00019 01A8C   115          PACK  $TEMPID(5),IEMPID(8)
+0019F8 F224 201E C0C4 0001E 01A94   116          PACK  $THRPAY(3),IHRLYPAY(5)
+0019FE F224 2021 C0C9 00021 01A99   117          PACK  $THOURS(3),IHOURS(5)
+001A04 F224 2024 C0CE 00024 01A9E   118          PACK  $TDEDUCT(3),IDEDUCT(5)
+001A0A F224 2027 C0D3 00027 01AA3   119          PACK  $TBONUS(3),IBONUS(5)
+001A10 D218 2000 C0D8 00000 01AA8   120          MVC   $TEMPNME(25),IEMPNME
+                                    121 *
+001A16 FA20 3000 C070 00000 01A40   122          AP    0(3,3),=PL1'1'          ADD 1 TO EMPLOYEE COUNTER
+                                    123 *
+001A1C 4120 202A            0002A   124          LA    2,42(,2)      INCREMENT TABLE POINTER
+                                    125 *
+001A20 E000 C0BC 0050 01A8C         126          XREAD EMPINFO,80    READ THE NEXT RECORD
+                                    127 *
+001A26 47F0 C01E            019EE   128          B     LOOP1         BRANCH BACK TO TOP OF LOOP 1 FOR EOF
+                                    129 *
+001A2A                              130          DROP  2
+                                    131 *
+001A2A 1BFF                         132 ENDLOOP1 SR    15,15         R15 = RETURN CODE OF 0
+001A2C 58D0 D004            00004   133          L     13,4(,13)     POINT R13 TO CALLER'S SAVE AREA
+001A30 58E0 D00C            0000C   134          L     14,12(,13)    RESTORE REGISTER 14
+001A34 980C D014            00014   135          LM    0,12,20(13)   RESTORE R0 THRU R12
+                                    136 *
+001A38 07FE                         137          BR    14            RETURN TO CALLER
+                                    138 *
+                                    139          LTORG
+001A40 1C                           140                =PL1'1'
+                                    141 *
+001A44                              142 BTSAVE   DS    18F           REGISTER SAVE AREA
+                                    143 *
+001A8C                              144 EMPINFO  DS    0H
+001A8C                              145 IEMPID   DS    ZL8           PACKS INTO 5 BYTES
+001A94                              146 IHRLYPAY DS    ZL5           PACKS INTO 3 BYTES
+001A99                              147 IHOURS   DS    ZL5           PACKS INTO 3 BYTES
+001A9E                              148 IDEDUCT  DS    ZL5           PACKS INTO 3 BYTES
+001AA3                              149 IBONUS   DS    ZL5           PACKS INTO 3 BYTES
+001AA8                              150 IEMPNME  DS    CL25
+001AC1                              151          DS    CL27
+                                    152 ********************************************************************
+                                    153 *
+                                    154 *        EXTERNAL SUBPROGRAM PROCTBL
+                                    155 ********************************************************************
+001AE0                              156 PROCTBL  CSECT
+001AE0 90EC D00C            0000C   157          STM   14,12,12(13)  SAVE REGS IN CALLER'S SAVE AREA
+001AE4 18CF                         158          LR    12,15         COPY CSECT ADDR INTO R12
+001AE0                              159          USING PROCTBL,12    ESTABLISH R12 AS THE BASE REG
+001AE6 41E0 C1AC            01C8C   160          LA    14,PTSAVE     R14 POINTS TO THIS CSECT'S SAVE AREA
+001AEA 50E0 D008            00008   161          ST    14,8(,13)     STORE ADDR OF THIS CSECT'S SAVE AREA
+001AEE 50D0 E004            00004   162          ST    13,4(,14)     STORE ADDR OF CALLER'S SAVE AREA
+001AF2 18DE                         163          LR    13,14         POINT R13 AT THIS CSECT'S SAVE AREA
+001AF4 41A0 0063            00063   164          LA    10,99         LINE COUNTER SET TO 99
+001AF8 4170 007E            0007E   165          LA    7,126
+                                    166 *
+                                                                                                               PAGE    4
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+001AFC 9824 1000            00000   167          LM    2,4,0(1)      R2 = EMPTBL FIRST ENTRY
+                                    168 *                            R3 = PEMPCTR(3)
+                                    169 *                            R4 = PWITHPCT(3)
+                                    170 *
+000000                              171          USING $TBLNTRY,2    ESTABLISH DSECT ADDRESSABILITY
+                                    172 *
+001B00 F922 C4B5 3000 01F95 00000   173 LOOP2    CP    PCOUNTER(3),0(3,3)
+                                    174 *
+001B06 9240 C245      01D25         175          MVI   DETAIL+1,C' '            MOVE SPACE TO DETAIL LINE
+001B0A D282 C246 C245 01D26 01D25   176          MVC   DETAIL+2(131),DETAIL+1   MOVE SPACES TO REMAINING BYTE
+                                    177 *
+001B10 D209 C245 C180 01D25 01C60   178          MVC   OEMPID-1(10),=X'21202060202020202020'
+001B16 DE09 C245 2019 01D25 00019   179          ED    OEMPID-1(10),$TEMPID     EDIT ACCT NBR INTO DETAIL
+                                    180 *
+001B1C FA20 C4B5 C18C 01F95 01C6C   181          AP    PCOUNTER(3),=PL1'1'
+001B22 FA10 C220 C18C 01D00 01C6C   182          AP    PPAGECTR(2),=PL1'1'     INCREMENT PAGE COUNTER BY 1
+001B28 F892 C23A 201E 01D1A 0001E   183          ZAP   PCALC(10),$THRPAY(3)     COPY HOURLY PAY TO PCALC
+001B2E FC92 C23A 2021 01D1A 00021   184          MP    PCALC(10),$THOURS(3)     MULTIPLY HOURLY PAY BY HOURS
+001B34 F095 C23A 003E 01D1A 0003E   185          SRP   PCALC(10),64-2,5         SHIFT AND ROUND TO TWO DEC.
+001B3A FA92 C23A 2027 01D1A 00027   186          AP    PCALC(10),$TBONUS(3)     ADD BONUS TO GROSSPAY
+001B40 FB92 C23A 2024 01D1A 00024   187          SP    PCALC(10),$TDEDUCT(3)    SUBTRACT DEDUCT FROM GROSSPAY
+001B46 F855 C228 C23E 01D08 01D1E   188          ZAP   PEMPGPAY(6),PCALC+4(6)   COPY GROSS PAY INTO PEMPGPAY
+                                    189 *
+001B4C F822 C225 4000 01D05 00000   190          ZAP   PPERCENT(3),0(3,4)       COPY PWITHPCT TO PPERCENT
+                                    191 *
+001B52 4150 C1F4            01CD4   192          LA    5,PARMS3           LOADING PARMS 3 INTO R5
+001B56 58F0 C178            01C58   193          L     15,=V(CALCNPAY)    LOAD ADDRESS OF SUBPROGRAM IN R15
+001B5A 05EF                         194          BALR  14,15              BRANCH AND LINK TO SUBPROGRAM
+                                    195 *
+                                    196 *         AP    OTDEDUCT(8),$TDEDUCT(3)      ADD DEDUCT TO TOTAL DEDUCT
+                                    197 *         AP    OTBONUS(9),$TBONUS(3)        ADD BONUS TO TOTAL BONUS
+                                    198 *         AP    OTGROSS(14),PEMPGPAY(6)      ADD GROSS TO TOTAL GROSS
+                                    199 *         AP    OTWITH(),PEMPWITH(6)         ADD WITH TO TOTAL WITH
+                                    200 *         AP    OTNETPY(),PEMPNPAY(6)        ADD NET TO TOTAL NET PAY
+                                    201 *
+001B5C 4160 C26F            01D4F   202          LA    6,OHRLYPAY+2
+001B60 D206 C26D C18D 01D4D 01C6D   203          MVC   OHRLYPAY(7),=X'402021204B2020'
+001B66 DF06 C26D 201E 01D4D 0001E   204          EDMK  OHRLYPAY(7),$THRPAY      EDIT HOURLY PAY INTO DETAIL
+001B6C 0660                         205          BCTR  6,0
+001B6E 925B 6000      00000         206          MVI   0(6),C'$'
+                                    207 *
+001B72 D206 C277 C194 01D57 01C74   208          MVC   OHOURS(7),=X'402020204B2020'
+001B78 DE06 C277 2021 01D57 00021   209          ED    OHOURS(7),$THOURS        EDIT HOURS WORKED INTO DETAIL
+                                    210 *
+001B7E 4160 C285            01D65   211          LA    6,ODEDUCT+2
+001B82 D206 C283 C18D 01D63 01C6D   212          MVC   ODEDUCT(7),=X'402021204B2020'
+001B88 DF06 C283 2024 01D63 00024   213          EDMK  ODEDUCT(7),$TDEDUCT      EDIT DEDUCTIONS INTO DETAIL
+001B8E 0660                         214          BCTR  6,0
+001B90 925B 6000      00000         215          MVI   0(6),C'$'
+                                    216 *
+001B94 4160 C28E            01D6E   217          LA    6,OBONUS+1
+001B98 D206 C28D C18D 01D6D 01C6D   218          MVC   OBONUS(7),=X'402021204B2020'
+001B9E DF06 C28D 2027 01D6D 00027   219          EDMK  OBONUS(7),$TBONUS        EDIT BONUS INTO DETAIL
+001BA4 0660                         220          BCTR  6,0
+001BA6 925B 6000      00000         221          MVI   0(6),C'$'
+                                    222 *
+001BAA D218 C251 2000 01D31 00000   223          MVC   OEMPNME(25),$TEMPNME     MOVE EMPLOYEE NAME TO DETAIL
+                                                                                                               PAGE    5
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+                                    224 *
+                                    225 *
+001BB0 4160 C29F            01D7F   226          LA    6,OGRSSPAY+8
+001BB4 D20E C297 C19B 01D77 01C7B   227          MVC   OGRSSPAY(15),=X'4020206B2020206B202021204B2020'
+001BBA DF0E C297 C228 01D77 01D08   228          EDMK  OGRSSPAY(15),PEMPGPAY     EDIT GROSS PAY TO DETAIL
+001BC0 0660                         229          BCTR  6,0
+001BC2 925B 6000      00000         230          MVI   0(6),C'$'
+                                    231 *
+001BC6 4160 C2B2            01D92   232          LA    6,OEMPWITH+9
+001BCA D20E C2A9 C19B 01D89 01C7B   233          MVC   OEMPWITH(15),=X'4020206B2020206B202021204B2020'
+001BD0 DF0E C2A9 C22E 01D89 01D0E   234          EDMK  OEMPWITH(15),PEMPWITH     EDIT WITHHOLD TO DETAIL
+001BD6 0660                         235          BCTR  6,0
+001BD8 925B 6000      00000         236          MVI   0(6),C'$'
+                                    237 *
+001BDC 4160 C2C2            01DA2   238          LA    6,OEMPNPAY+8
+001BE0 D20E C2BA C19B 01D9A 01C7B   239          MVC   OEMPNPAY(15),=X'4020206B2020206B202021204B2020'
+001BE6 DF0E C2BA C234 01D9A 01D14   240          EDMK  OEMPNPAY(15),PEMPNPAY     EDIT NET PAY TO DETAIL
+001BEC 0660                         241          BCTR  6,0
+001BEE 925B 6000      00000         242          MVI   0(6),C'$'
+                                    243 *
+001BF2 92F0 C244      01D24         244          MVI   DETAIL,C'0'              RESTORE CARRIAGE CONTROL
+                                    245 *
+001BF6 4120 202A            0002A   246          LA    2,42(,2)      INCREMENT TABLE POINTER
+                                    247 *
+001BFA 59A0 C17C            01C5C   248          C     10,=F'16'     SHOULD WE PRINT HEADERS? IF STATEMENT
+001BFE 4740 C14E            01C2E   249          BL    NOHDRS        BRANCH TO PRINTING HEADERS
+                                    250 *
+001C02 D201 C536 C18A 02016 01C6A   251          MVC   OPAGECTR(2),=X'2020'
+001C08 DE01 C536 C220 02016 01D00   252          ED    OPAGECTR(2),PPAGECTR    ADD PAGE COUNTER TO HEADER1
+001C0E E020 C4B8 0085 01F98         253          XPRNT HEADER1,133   PRINT PAGE HEADER
+001C14 E020 C538 0085 02018         254          XPRNT HEADER2,133   PRINT PAGE HEADER
+001C1A E020 C5C0 0085 020A0         255          XPRNT HEADER3,133   PRINT PAGE HEADER
+001C20 E020 C645 0085 02125         256          XPRNT HEADER4,133   PRINT PAGE HEADER
+001C26 E020 C6CA 0085 021AA         257          XPRNT HEADER5,133   PRINT LAST PAGE HEADER
+001C2C 1BAA                         258          SR    10,10         ZERO OUT LINE COUNTER
+                                    259 *
+001C2E E020 C244 0085 01D24         260 NOHDRS   XPRNT DETAIL,133    PRINT THE DETAIL LINE
+001C34 41A0 A001            00001   261          LA    10,1(,10)     INCREMENT LINE COUNTER BY 1
+                                    262 *
+001C38 47F0 C020            01B00   263          B     LOOP2
+                                    264 *
+001C3C 4170 C204            01CE4   265 ENDLOOP2 LA    7,PARMS4           LOADING PARMS 3 INTO R5
+001C40 58F0 C178            01C58   266          L     15,=V(CALCNPAY)    LOAD ADDRESS OF SUBPROGRAM IN R15
+001C44 05EF                         267          BALR  14,15              BRANCH AND LINK TO SUBPROGRAM
+001C46 1BFF                         268          SR    15,15         R15 = RETURN CODE OF 0
+001C48 58D0 D004            00004   269          L     13,4(,13)     POINT R13 TO CALLER'S SAVE AREA
+001C4C 58E0 D00C            0000C   270          L     14,12(,13)    RESTORE REGISTER 14
+001C50 980C D014            00014   271          LM    0,12,20(13)   RESTORE R0 THRU R12
+                                    272 *
+001C54 07FE                         273          BR    14            RETURN TO CALLER
+                                    274 *
+                                    275          LTORG
+001C58 00002230                     276                =V(CALCNPAY)
+001C5C 00000010                     277                =F'16'
+001C60 2120206020202020             278                =X'21202060202020202020'
+001C6A 2020                         279                =X'2020'
+001C6C 1C                           280                =PL1'1'
+                                                                                                               PAGE    6
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+001C6D 402021204B2020               281                =X'402021204B2020'
+001C74 402020204B2020               282                =X'402020204B2020'
+001C7B 4020206B2020206B             283                =X'4020206B2020206B202021204B2020'
+                                    284 *
+001C8C                              285 PTSAVE   DS    18F           REGISTER SAVE AREA
+                                    286 ********************************************************************
+                                    287 *
+                                    288 *         PARMS FIELDS
+                                    289 ********************************************************************
+001CD4 00001D05                     290 PARMS3   DC    A(PPERCENT)    ADDR OF PACKED PERCENTAGE
+001CD8 00001D08                     291          DC    A(PEMPGPAY)    ADDR OF PACKED EMPLOYEE GROSS PAY
+001CDC 00001D0E                     292          DC    A(PEMPWITH)    ADDR OF PACKED EMPLOYEE WITHHOLDING
+001CE0 00001D14                     293          DC    A(PEMPNPAY)    ADDR OF PACKED EMPLOYEE NET PAY
+                                    294 *
+001CE4 00001E8F                     295 PARMS4   DC    A(OTGROSS)
+001CE8 00001EC0                     296          DC    A(AVGROSS)
+001CEC 00001EE9                     297          DC    A(OTWITH)
+001CF0 00001F19                     298          DC    A(AVWITH)
+001CF4 00001F41                     299          DC    A(OTNETPY)
+001CF8 00001F6E                     300          DC    A(AVNETPY)
+001CFC 00001D02                     301          DC    A(PPEMPCTR)
+                                    302 *******************************************************************
+                                    303 *
+                                    304 *         PACKED DECIMAL VARIABLES
+                                    305 ********************************************************************
+001D00 000C                         306 PPAGECTR DC    PL2'0'        PACKED PAGE COUNTER (MAX 999)
+001D02 00000C                       307 PPEMPCTR DC    PL3'0'        PACKED EMPLOYEE COUNTER (MAX 999)
+                                    308 *
+001D05 00000C                       309 PPERCENT DC    PL3'0'        PACKED PERCENTAGE
+001D08 00000000000C                 310 PEMPGPAY DC    PL6'0'        PACKED CALCULATED EMPLOYEE GROSS PAY
+001D0E 00000000000C                 311 PEMPWITH DC    PL6'0'        PACKED CALCULATED EMPLOYEE WITHHOLDING
+001D14 00000000000C                 312 PEMPNPAY DC    PL6'0'        PACKED CALCULATED EMPLOYEE NET PAY
+                                    313 *
+                                    314 *PTDEDCT
+                                    315 *PTBONUS
+                                    316 *PTGROSS
+                                    317 *PTWITH
+                                    318 *PTNETPY
+                                    319 *
+001D1A 0000000000000000             320 PCALC    DC    PL10'0'       USED TO CALCULATE WITHHOLDING AND AVGS
+                                    321 ********************************************************************
+                                    322 *
+                                    323 *         OUTPUT FOR EMPLOYEE RECORDS
+                                    324 ********************************************************************
+001D24 F0                           325 DETAIL   DC    C'0'
+001D25 40                           326          DC    1C' '
+001D26                              327 OEMPID   DS    CL8
+001D2E 404040                       328          DC    3C' '
+001D31                              329 OEMPNME  DS    CL25
+001D4A 404040                       330          DC    3C' '
+001D4D                              331 OHRLYPAY DS    CL5
+001D52 4040404040                   332          DC    5C' '
+001D57                              333 OHOURS   DS    CL4
+001D5B 4040404040404040             334          DC    8C' '
+001D63                              335 ODEDUCT  DS    CL5
+001D68 4040404040                   336          DC    5C' '
+001D6D                              337 OBONUS   DS    CL6
+                                                                                                               PAGE    7
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+001D73 40404040                     338          DC    4C' '
+001D77                              339 OGRSSPAY DS    CL9
+001D80 4040404040404040             340          DC    9C' '
+001D89                              341 OEMPWITH DS    CL10
+001D93 40404040404040               342          DC    7C' '
+001D9A                              343 OEMPNPAY DS    CL10
+                                    344 ********************************************************************
+                                    345 *
+                                    346 *        TOTAL OF ALL FIELDS
+                                    347 ********************************************************************
+001DA4 F0                           348 TOTALS1  DC    C'0'
+001DA5 D5E4D4C2C5D940D6             349          DC    C'NUMBER OF EMPLOYEES:'
+001DB9 402020202120                 350 OEMPCTR  DC    X'402020202120'
+001DBF 4040404040404040             351          DC    108C' '
+                                    352 *
+001E2B F0                           353 TOTALS2  DC    C'0'
+001E2C 404040                       354          DC    3C' '
+001E2F E3D6E3C1D340C4C5             355          DC    C'TOTAL DEDUCTIONS:'
+001E40 4040404040404040             356          DC    10C' '
+001E4A                              357 OTDEDUC  DS    CL8
+                                    358 *
+001E52 F0                           359 TOTALS3  DC    C'0'
+001E53 404040404040                 360          DC    6C' '
+001E59 E3D6E3C1D340C2D6             361          DC    C'TOTAL BONUSES:'
+001E67 4040404040404040             362          DC    9C' '
+001E70                              363 OTBONUS  DS    CL9
+                                    364 *
+001E79 F0                           365 TOTALS4  DC    C'0'
+001E7A 4040404040                   366          DC    5C' '
+001E7F E3D6E3C1D340C7D9             367          DC    C'TOTAL GROSS PAY:'
+001E8F                              368 OTGROSS  DS    CL14
+001E9D 4040404040404040             369          DC    10C' '
+001EA7 C1E5C5D9C1C7C540             370          DC    C'AVERAGE GROSS PAY:'
+001EB9 40404040404040               371          DC    7C' '
+001EC0                              372 AVGROSS  DS    CL10
+                                    373 *
+001ECA F0                           374 TOTALS5  DC    C'0'
+001ECB 404040                       375          DC    3C' '
+001ECE E3D6E3C1D340E6C9             376          DC    C'TOTAL WITHHOLDING:'
+001EE0 4040404040404040             377          DC    9C' '
+001EE9 0000000000000000             378 OTWITH   DC    PL10'0'
+001EF3 4040404040404040             379          DC    9C' '
+001EFC C1E5C5D9C1C7C540             380          DC    C'AVERAGE WITHHOLDING:'
+001F10 4040404040404040             381          DC    9C' '
+001F19 0000000000000000             382 AVWITH   DC    PL10'0'
+                                    383 *
+001F23 F0                           384 TOTALS6  DC    C'0'
+001F24 40404040404040               385          DC    7C' '
+001F2B E3D6E3C1D340D5C5             386          DC    C'TOTAL NET PAY:'
+001F39 4040404040404040             387          DC    8C' '
+001F41 0000000000000000             388 OTNETPY  DC    PL10'0'
+001F4B 4040404040404040             389          DC    12C' '
+001F57 C1E5C5D9C1C7C540             390          DC    C'AVERAGE NET PAY:'
+001F67 40404040404040               391          DC    7C' '
+001F6E 0000000000000000             392 AVNETPY  DC    PL10'0'
+                                    393 ********************************************************************
+                                    394 *
+                                                                                                               PAGE    8
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+                                    395 *         PACKED TOTALS FIELDS
+                                    396 ********************************************************************
+001F78 0000000C                     397 PTDEDUCT DC    PL4'0'        PACKED TOTAL DEDUCTIONS
+001F7C 0000000C                     398 PTBONUS  DC    PL4'0'        PACKED TOTAL BONUSES
+001F80 0000000000000C               399 PTGRPAY  DC    PL7'0'        PACKED TOTAL GROSS EMPLOYEE PAY
+001F87 0000000000000C               400 PTWITH   DC    PL7'0'        PACKED TOTAL WITHHOLDING
+001F8E 0000000000000C               401 PTNETPAY DC    PL7'0'        PACKED TOTAL NET EMPLOYEE PAY
+001F95 00000C                       402 PCOUNTER DC    PL3'0'
+                                    403 *
+001F98 F1                           404 HEADER1  DC    C'1'     PAGE HEADER
+001F99 4040404040404040             405          DC    49C' '
+001FCA C6C5C5D3C9D5C7E2             406          DC    C'FEELINGS MUTUAL INSURANCE COMPANY'
+001FEB 4040404040404040             407          DC    38C' '
+002011 D7C1C7C57A                   408          DC    C'PAGE:'
+002016                              409 OPAGECTR DS    PL2'0'
+                                    410 *
+002018 F1                           411 HEADER2  DC    C'1'
+002019 4040404040404040             412          DC    52C' '
+00204D E2C5D4C960D4D6D5             413          DC    C'SEMI-MONTHLY PAYROLL REPORT'
+002068 4040404040404040             414          DC    56C' '
+                                    415 *
+0020A0 F0                           416 HEADER3  DC    C'0'
+0020A1 C5D4D7D3D6E8C5C5             417          DC    C'EMPLOYEE'
+0020A9 404040                       418          DC    3C' '
+0020AC C5D4D7D3D6E8C5C5             419          DC    C'EMPLOYEE'
+0020B4 4040404040404040             420          DC    21C' '
+0020C9 C8D6E4D9D3E8                 421          DC    C'HOURLY'
+0020CF 4040404040                   422          DC    5C' '
+0020D4 C8D6E4D9E2                   423          DC    C'HOURS'
+0020D9 404040                       424          DC    3C' '
+0020DC C4C5C4E4C3E3C9D6             425          DC    C'DEDUCTION'
+0020E5 4040404040                   426          DC    5C' '
+0020EA C2D6D5E4E2                   427          DC    C'BONUS'
+0020EF 4040404040404040             428          DC    10C' '
+0020F9 C5D4D7D3D6E8C5C5             429          DC    C'EMPLOYEE'
+002101 4040404040404040             430          DC    10C' '
+00210B C5D4D7D3D6E8C5C5             431          DC    C'EMPLOYEE'
+002113 4040404040404040             432          DC    10C' '
+00211D C5D4D7D3D6E8C5C5             433          DC    C'EMPLOYEE'
+                                    434 *
+002125 F0                           435 HEADER4  DC    C'0'
+002126 C9C4                         436          DC    C'ID'
+002128 4040404040404040             437          DC    9C' '
+002131 D5C1D4C5                     438          DC    C'NAME'
+002135 4040404040404040             439          DC    28C' '
+002151 D7C1E8                       440          DC    C'PAY'
+002154 40404040                     441          DC    4C' '
+002158 E6D6D9D2C5C4                 442          DC    C'WORKED'
+00215E 404040404040                 443          DC    6C' '
+002164 C1D4D6E4D5E3                 444          DC    C'AMOUNT'
+00216A 40404040                     445          DC    4C' '
+00216E C1D4D6E4D5E3                 446          DC    C'AMOUNT'
+002174 4040404040404040             447          DC    9C' '
+00217D C7D9D6E2E240D7C1             448          DC    C'GROSS PAY'
+002186 40404040404040               449          DC    7C' '
+00218D E6C9E3C8C8D6D3C4             450          DC    C'WITHHOLDING'
+002198 4040404040404040             451          DC    11C' '
+                                                                                                               PAGE    9
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+0021A3 D5C5E340D7C1E8               452          DC    C'NET PAY'
+                                    453 *
+0021AA F0                           454 HEADER5  DC    C'0'
+0021AB 6060606060606060             455          DC    C'--------'
+0021B3 404040                       456          DC    3C' '
+0021B6 6060606060606060             457          DC    C'-------------------------'
+0021CF 404040                       458          DC    3C' '
+0021D2 60606060606060               459          DC    C'-------'
+0021D9 404040                       460          DC    3C' '
+0021DC 60606060606060               461          DC    C'-------'
+0021E3 404040                       462          DC    3C' '
+0021E6 6060606060606060             463          DC    C'---------'
+0021EF 404040                       464          DC    3C' '
+0021F2 60606060606060               465          DC    C'-------'
+0021F9 404040                       466          DC    3C' '
+0021FC 6060606060606060             467          DC    C'---------------'
+00220B 404040                       468          DC    3C' '
+00220E 6060606060606060             469          DC    C'---------------'
+00221D 4040                         470          DC    2C' '
+00221F 6060606060606060             471          DC    C'----------------'
+                                    472 *
+                                    473 ********************************************************************
+                                    474 *
+                                    475 *        EXTERNAL SUBPROGRAM CALCNPAY
+                                    476 ********************************************************************
+002230                              477 CALCNPAY CSECT
+002230 90EC D00C            0000C   478          STM   14,12,12(13)  SAVE REGS IN CALLER'S SAVE AREA
+002234 18CF                         479          LR    12,15         COPY CSECT ADDR INTO R12
+002230                              480          USING CALCNPAY,12   ESTABLISH R12 AS THE BASE REG
+002236 41E0 C058            02288   481          LA    14,CPSAVE     R14 POINTS TO THIS CSECT'S SAVE AREA
+00223A 50E0 D008            00008   482          ST    14,8(,13)     STORE ADDR OF THIS CSECT'S SAVE AREA
+00223E 50D0 E004            00004   483          ST    13,4(,14)     STORE ADDR OF CALLER'S SAVE AREA
+002242 18DE                         484          LR    13,14         POINT R13 AT THIS CSECT'S SAVE AREA
+                                    485 *
+                                    486 *
+002244 9825 5000            00000   487          LM    2,5,0(5)      R2 = PPERCENT(3)
+                                    488 *                            R3 = PEMPGPAY(6)
+                                    489 *                            R4 = PEMPWITH(6)
+                                    490 *                            R5 = PEMPNPAY(6)
+                                    491 *
+002248 F885 C0A0 3000 022D0 00000   492          ZAP   CCALC(9),0(6,3)         COPY GROSS PAY TO CALC
+                                    493 *
+00224E FC82 C0A0 2000 022D0 00000   494          MP    CCALC(9),0(3,2)         MULTIPLY GROSSPAY BY PWITHPCT
+002254 F085 C0A0 003E 022D0 0003E   495          SRP   CCALC(9),64-2,5         SHIFT AND ROUND TO TWO DEC.
+00225A F855 4000 C0A3 00000 022D3   496          ZAP   0(6,4),CCALC+3(6)       COPY WITHHOLD TO R4
+                                    497 *
+002260 F885 C0A0 3000 022D0 00000   498          ZAP   CCALC(9),0(6,3)         COPY GROSSPAY INTO CCALC(10)
+002266 FB85 C0A0 4000 022D0 00000   499          SP    CCALC(9),0(6,4)         SUBTRACT WITHHOLD FROM GROSSPAY
+00226C F855 5000 C0A3 00000 022D3   500          ZAP   0(6,5),CCALC+3(6)       COPY NET PAY INTO R5w
+                                    501 *
+002272 1BFF                         502          SR    15,15         R15 = RETURN CODE OF 0
+002274 58D0 D004            00004   503          L     13,4(,13)     POINT R13 TO CALLER'S SAVE AREA
+002278 58E0 D00C            0000C   504          L     14,12(,13)    RESTORE REGISTER 14
+00227C 980C D014            00014   505          LM    0,12,20(13)   RESTORE R0 THRU R12
+                                    506 *
+002280 07FE                         507          BR    14            RETURN TO CALLER
+                                    508 *
+                                                                                                               PAGE   10
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+                                    509          LTORG
+                                    510 *
+002288                              511 CPSAVE   DS    18F           REGISTER SAVE AREA
+                                    512 *
+0022D0 0000000000000000             513 CCALC    DC    PL9'0'
+                                    514 *
+                                    515 ********************************************************************
+                                    516 *
+                                    517 *        EXTERNAL SUBPROGRAM CALCAVG
+                                    518 ********************************************************************
+0022E0                              519 CALCAVG  CSECT
+0022E0 90EC D00C            0000C   520          STM   14,12,12(13)  SAVE REGS IN CALLER'S SAVE AREA
+0022E4 18CF                         521          LR    12,15         COPY CSECT ADDR INTO R12
+0022E0                              522          USING CALCAVG,12    ESTABLISH R12 AS THE BASE REG
+0022E6 41E0 C028            02308   523          LA    14,CASAVE     R14 POINTS TO THIS CSECT'S SAVE AREA
+0022EA 50E0 D008            00008   524          ST    14,8(,13)     STORE ADDR OF THIS CSECT'S SAVE AREA
+0022EE 50D0 E004            00004   525          ST    13,4(,14)     STORE ADDR OF CALLER'S SAVE AREA
+0022F2 18DE                         526          LR    13,14         POINT R13 AT THIS CSECT'S SAVE AREA
+                                    527 *
+0022F4 9828 7000            00000   528          LM    2,8,0(7)      R2 = EMPTBL FIRST ENTRY
+                                    529 *                            R3 = PEMPCTR(3)
+                                    530 *                            R4 = PWITHPCT(3)
+                                    531 *                            R5 =
+                                    532 *                            R6 =
+                                    533 *                            R7 =
+                                    534 *                            R8 =
+                                    535 *
+0022F8 1BFF                         536          SR    15,15         R15 = RETURN CODE OF 0
+0022FA 58D0 D004            00004   537          L     13,4(,13)     POINT R13 TO CALLER'S SAVE AREA
+0022FE 58E0 D00C            0000C   538          L     14,12(,13)    RESTORE REGISTER 14
+002302 980C D014            00014   539          LM    0,12,20(13)   RESTORE R0 THRU R12
+                                    540 *
+002306 07FE                         541          BR    14            RETURN TO CALLER
+                                    542 *
+                                    543          LTORG
+                                    544 *
+002308                              545 CASAVE   DS    18F           REGISTER SAVE AREA
+                                    546 *
+                                    547          END   PAYROLL5
+***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS
+*** DYNAMIC CORE AREA USED:  LOW:   29360 HIGH:    2412 LEAVING:  461796 FREE BYTES. AVERAGE:       57 BYTES/STMT ***
+*** ASSEMBLY TIME =    0.001 SECS,   548000 STATEMENTS/SEC ***
+*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***
+                                                 FEELINGS MUTUAL INSURANCE COMPANY                                      PAGE:1
+                                                    SEMI-MONTHLY PAYROLL REPORT
+EMPLOYEE   EMPLOYEE                     HOURLY     HOURS   DEDUCTION     BONUS          EMPLOYEE          EMPLOYEE          EMPLOYEE
+ID         NAME                            PAY    WORKED      AMOUNT    AMOUNT         GROSS PAY       WITHHOLDING           NET PAY
+--------   -------------------------   -------   -------   ---------   -------   ---------------   ---------------  ----------------
+32-345242  JOAN TOWER                   $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+43-456322  WOLFGANG AMADEUS MOZART      $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+14-032233  RICHARD STRAUSS              $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+16-465120  AMY BEACH                    $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+16-560023  DAME ETHEL SMYTHE            $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-870322  PETER ILYICH TCHAIKOVSKY     $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+14-966277  ANTON BRUCKNER               $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+33-345245  OLIVIER MESSIAEN             $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+03-456422  SERGEI RACHMANINOV           $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+44-232233  SAMUEL BARBER                $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+26-466120  JOHN TAVENER                 $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+06-550023  HERBERT VON KARAJAN          $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-899322  MSTISLAV ROSTROPOVICH        $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+94-966277  HENRYK SZERYNG               $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+52-348245  TON KOOPMAN                  $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+13-456322  NIKOLAUS HARNONCOURT         $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+                                                 FEELINGS MUTUAL INSURANCE COMPANY                                      PAGE:11
+                                                    SEMI-MONTHLY PAYROLL REPORT
+EMPLOYEE   EMPLOYEE                     HOURLY     HOURS   DEDUCTION     BONUS          EMPLOYEE          EMPLOYEE          EMPLOYEE
+ID         NAME                            PAY    WORKED      AMOUNT    AMOUNT         GROSS PAY       WITHHOLDING           NET PAY
+--------   -------------------------   -------   -------   ---------   -------   ---------------   ---------------  ----------------
+34-032233  JOSEPH HAYDN                 $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+46-465120  MICHAEL HAYDN                $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+36-560023  MICHEL SCHWALBE              $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-870432  FERENC FRICSAY               $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+14-963277  BERNARD HAITINK              $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+82-344245  GEORG SOLTI                  $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+73-446327  FRITZ REINER                 $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+64-033233  JASCHA HEIFETZ               $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+51-465120  DAVID OISTRAKH               $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+81-560023  ANNE SOPHIE MUTTER           $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-370322  LEONARD BERNSTEIN            $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+24-966277  GEORGE FREDRIC HANDEL        $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+42-233245  FRANZ SCHUBERT               $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+37-452322  FREDERICK FENNELL            $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+22-235533  MARTHA ARGERICH              $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+06-455660  CLAUDIO ABBADO               $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+                                                 FEELINGS MUTUAL INSURANCE COMPANY                                      PAGE:31
+                                                    SEMI-MONTHLY PAYROLL REPORT
+EMPLOYEE   EMPLOYEE                     HOURLY     HOURS   DEDUCTION     BONUS          EMPLOYEE          EMPLOYEE          EMPLOYEE
+ID         NAME                            PAY    WORKED      AMOUNT    AMOUNT         GROSS PAY       WITHHOLDING           NET PAY
+--------   -------------------------   -------   -------   ---------   -------   ---------------   ---------------  ----------------
+06-564453  BELA BARTOK                  $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-873322  EUGEN JOCHUM                 $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+14-964377  HECTOR BERLIOZ               $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+92-222245  WILLIAM SCHUMAN              $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+03-454367  ROBERT SCHUMANN              $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+94-882233  TILL EULENSPIEGEL            $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+96-865120  DON JUAN                     $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+08-560023  HANS BRINKER                 $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+83-870322  VICTOR HUGO                  $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+17-966277  LORIN MAAZEL                 $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+42-345242  RICCARDO MUTI                $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+43-456322  CARL MARIA VON WEBER         $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+34-032233  GUSTAV MAHLER                $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+66-465120  KARL BOHM                    $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+06-560023  PIERRE BOULEZ                $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-870322  WILLI BOSKOVSKY              $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+                                                 FEELINGS MUTUAL INSURANCE COMPANY                                      PAGE:41
+                                                    SEMI-MONTHLY PAYROLL REPORT
+EMPLOYEE   EMPLOYEE                     HOURLY     HOURS   DEDUCTION     BONUS          EMPLOYEE          EMPLOYEE          EMPLOYEE
+ID         NAME                            PAY    WORKED      AMOUNT    AMOUNT         GROSS PAY       WITHHOLDING           NET PAY
+--------   -------------------------   -------   -------   ---------   -------   ---------------   ---------------  ----------------
+04-966277  LUDWIG VAN BEETHOVEN         $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+03-345245  GAETANO DONIZETTI            $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+03-456422  GIACOMO PUCCINI              $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+84-232233  GIUSEPPE VERDI               $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+66-466120  JON VICKERS                  $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+56-550023  JOAN SUTHERLAND              $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-899322  LUCIANO PAVAROTTI            $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+94-966277  ARTURO TOSCANINI             $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+02-348245  KLAUS TENNSTEDT              $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+13-456322  DON GIOVANNI                 $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+34-032233  JOHN PHILIP SOUSA            $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+46-465120  DMITRI SHOSTAKOVICH          $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+06-560023  GIULIO CESARE                $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-870432  PIERRE FOURNIER              $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+14-963277  MARIA CALLAS                 $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+12-344245  ARAM KHATCHATURIAN           $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+                                                 FEELINGS MUTUAL INSURANCE COMPANY                                      PAGE:61
+                                                    SEMI-MONTHLY PAYROLL REPORT
+EMPLOYEE   EMPLOYEE                     HOURLY     HOURS   DEDUCTION     BONUS          EMPLOYEE          EMPLOYEE          EMPLOYEE
+ID         NAME                            PAY    WORKED      AMOUNT    AMOUNT         GROSS PAY       WITHHOLDING           NET PAY
+--------   -------------------------   -------   -------   ---------   -------   ---------------   ---------------  ----------------
+13-446327  LEOS JANACEK                 $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+94-033233  ANTONIN DVORAK               $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+01-465120  JOHN ADAMS                   $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+61-560023  JOHN CAGE                    $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-370322  JOSEPH JONGEN                $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+24-966277  BOHUSLAV MARTINU             $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+02-233245  IGOR STRAVINSKY              $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+33-452322  PIERRE MONTEAU               $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+32-235533  DIMITRI MITROPOULOS          $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+46-455660  SERGE KOUSSEVITZKY           $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+56-564453  KAROL SZYMANOWSKI            $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+03-873322  CARL NIELSEN                 $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+04-964377  JEAN SIBELIUS                $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+22-222245  GEORGE ENESCU                $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+33-454367  FRANK MARTIN                 $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+14-882233  MARCEL DUPRE                 $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+                                                 FEELINGS MUTUAL INSURANCE COMPANY                                      PAGE:81
+                                                    SEMI-MONTHLY PAYROLL REPORT
+EMPLOYEE   EMPLOYEE                     HOURLY     HOURS   DEDUCTION     BONUS          EMPLOYEE          EMPLOYEE          EMPLOYEE
+ID         NAME                            PAY    WORKED      AMOUNT    AMOUNT         GROSS PAY       WITHHOLDING           NET PAY
+--------   -------------------------   -------   -------   ---------   -------   ---------------   ---------------  ----------------
+16-865120  MAURICE RAVEL                $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+68-560023  CLAUDE DEBUSSY               $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+83-870322  MODEST MUSSORGSKY            $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+17-966277  ALEXANDER ZEMLINSKY          $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+02-345242  GEORGE GERSHWIN              $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+73-456322  FERRUCCIO BUSONI             $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+64-032233  EUGENE YSAYE                 $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+06-465120  FRANZ LISZT                  $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+06-560023  FREDRIC CHOPIN               $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-870322  DANIEL BARENBOIM             $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+14-966277  RICHARD WAGNER               $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+33-345245  FRANCIS POULENC              $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+03-456422  JOHANN WOLFGANG GOETHE       $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+44-232233  ARNOLD SCHOENBERG            $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+46-466120  ALBAN BERG                   $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+76-550023  ANTON WEBERN                 $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+                                                 FEELINGS MUTUAL INSURANCE COMPANY                                      PAGE:91
+                                                    SEMI-MONTHLY PAYROLL REPORT
+EMPLOYEE   EMPLOYEE                     HOURLY     HOURS   DEDUCTION     BONUS          EMPLOYEE          EMPLOYEE          EMPLOYEE
+ID         NAME                            PAY    WORKED      AMOUNT    AMOUNT         GROSS PAY       WITHHOLDING           NET PAY
+--------   -------------------------   -------   -------   ---------   -------   ---------------   ---------------  ----------------
+13-899322  GUSTAV KLIMT                 $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+04-966277  DARIUS MILHAUD               $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+72-348245  ARTHUR HONEGGER              $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+13-456322  JOSEPH CANTELOUBE            $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+34-032233  AARON COPLAND                $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+46-465120  JOSEPH SZIGETI               $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+36-560023  ELLA FITZGERALD              $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-870432  JOSEPHINE BAKER              $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+04-963277  JACQUES IBERT                $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+02-344245  EDWARD ELGAR                 $15.25     80.50      $25.10   $500.22          $1702.75           $306.50         $1396.25
+03-446327  BENJAMIN BRITTEN             $19.00     80.75      $ 0.00   $ 13.44          $1547.69           $278.58         $1269.11
+34-033233  WILLIAM WALTON               $10.29     80.00      $31.23   $254.00          $1045.97           $188.27         $ 857.70
+41-465120  RALPH VAUGHAN WILLIAMS       $22.00     80.00      $15.09   $900.25          $2645.16           $476.13         $2169.03
+51-560023  PETER WARLOCK                $23.75     28.25      $34.15   $ 70.85          $ 707.64           $127.38         $ 580.26
+13-370322  EDGAR VARESE                 $22.95     80.50      $21.25   $  0.00          $1826.23           $328.72         $1497.51
+24-966277  SERGEI PROKOFIEV             $20.20     78.67      $ 0.79   $210.23          $1798.57           $323.74         $1474.83
+                                                 FEELINGS MUTUAL INSURANCE COMPANY                                      PAGE:111
+*** EXECUTION TIME =    0.003 SECS.     10070 INSTRUCTIONS EXECUTED -  3356666 INSTRUCTIONS/SEC ***
+ ASSIST COMPLETION DUMP
+PSW AT ABEND FFC50000 D0001C1A       COMPLETION CODE   ASSIST = 222 RECORD LIMIT EXCEEDED
+** TRACE OF INSTRUCTIONS JUST BEFORE TERMINATION: PSW BITS SHOWN ARE THOSE BEFORE CORRESPONDING INSTRUCTION DECODED ***
+  IM LOCATION    INSTRUCTION :  IM = PSW BITS 32-39(ILC,CC,MASK) BEFORE INSTRUCTION EXECUTED AT PROGRAM LOCATION SHOWN
+  20  001BEC     0660
+  60  001BEE     925B 6000
+  A0  001BF2     92F0 C244
+  A0  001BF6     4120 202A
+  A0  001BFA     59A0 C17C
+  80  001BFE     4740 C14E
+  80  001C02     D201 C536 C18A
+  C0  001C08     DE01 C536 C220
+  D0  001C0E     E020 C4B8 0085
+  D0  001C14     E020 C538 0085  <-- LAST INSTRUCTION DONE - PROBABLE CAUSE OF TERMINATION
+ 
+** TRACE OF LAST 10 BRANCH INSTRUCTIONS EXECUTED: PSW BITS SHOWN ARE THOSE BEFORE CORRESPONDING INSTRUCTION DECODED ***
+  IM LOCATION    INSTRUCTION :  IM = PSW BITS 32-39(ILC,CC,MASK) BEFORE INSTRUCTION EXECUTED AT PROGRAM LOCATION SHOWN
+  20  001B5A     05EF
+  40  002280     07FE
+  50  001BFE     4740 C14E
+  90  001C38     47F0 C020
+  A0  001B5A     05EF
+  40  002280     07FE
+  50  001BFE     4740 C14E
+  90  001C38     47F0 C020
+  A0  001B5A     05EF
+  40  002280     07FE
+ REGS 0-7      F4F4F4F4    00001DA2    0000136C    000000DF    000000DC    00001CD4    00001DA1    0000007E
+ REGS 8-15     F4F4F4F4    F4F4F4F4    00000010    00001000    00001AE0    00001C8C    60001B5C    00000000
+ FLTR 0-6      F4F4F4F4F4F4F4F4        F4F4F4F4F4F4F4F4        F4F4F4F4F4F4F4F4        F4F4F4F4F4F4F4F4
+ USER STORAGE
+                             CORE ADDRESSES SPECIFIED-     000000 TO 002498
+000000   90ECD00C 18CF41E0 C08050E0 D00850D0    E00418DE 41B0CFFF 41B0B001 E000B97E   *................................*
+000020   0050F222 C0DCB97E 4110C0C8 58F0C050    05EF4110 C0D058F0 C05405EF 1BFF58D0   *..2........H.0.........0........*
+000040   D00458E0 D00C980C D01407FE F5F5F5F5    000019D0 00001AE0 F5F5F5F5 F5F5F5F5   *............5555........55555555*
+000060   5C40D7D9 D6C7D9C1 D440E2E3 D6D9C1C7    C540C6D6 D940D7C1 E8D9D6D3 D3F5405C   *. PROGRAM STORAGE FOR PAYROLL5 .*
+000080   F5F5F5F5 00002350 00001C8C 4000003C    00001AE0 F4F4F4F4 000000D0 F4F4F4F4   *5555........ .......4444....4444*
+0000A0   F4F4F4F4 F4F4F4F4 F4F4F4F4 F4F4F4F4    F4F4F4F4 F4F4F4F4 F4F4F4F4 F4F4F4F4   *44444444444444444444444444444444*
+0000C0   00001000 00000000 000000E2 000000DF    000000E2 000000DF 000000DC 00018F00   *...........S.......S............*
+0000E0   126CD1D6 C1D540E3 D6E6C5D9 40404040    40404040 40404040 40404003 2345242F   *..JOAN TOWER               .....*
+000100   01525F08 050F0251 0F50022F E6D6D3C6    C7C1D5C7 40C1D4C1 C4C5E4E2 40D4D6E9   *............WOLFGANG AMADEUS MOZ*
+000120   C1D9E340 40043456 322F0190 0F08075F    00000F01 344FD9C9 C3C8C1D9 C440E2E3   *ART  .................RICHARD ST*
+000140   D9C1E4E2 E2404040 40404040 40404001    4032233F 01029F08 000F0312 3F25400F   *RAUSS          . ............. .*
+000160   C1D4E840 C2C5C1C3 C8404040 40404040    40404040 40404040 40016465 120F0220   *AMY BEACH                .......*
+000180   0F08000F 01509F90 025FC4C1 D4C540C5    E3C8C5D3 40E2D4E8 E3C8C540 40404040   *..........DAME ETHEL SMYTHE     *
+0001A0   40404001 6560023F 02375F02 825F0341    5F07085F D7C5E3C5 D940C9D3 E8C9C3C8   *   .................PETER ILYICH*
+0001C0   40E3C3C8 C1C9D2D6 E5E2D2E8 40013870    322F0229 5F08050F 02125F00 000FC1D5   * TCHAIKOVSKY .................AN*
+0001E0   E3D6D540 C2D9E4C3 D2D5C5D9 40404040    40404040 40404001 4966277F 02020F07   *TON BRUCKNER           .........*
+000200   867F0007 9F21023F D6D3C9E5 C9C5D940    D4C5E2E2 C9C1C5D5 40404040 40404040   *........OLIVIER MESSIAEN        *
+000220   40033345 245F0152 5F08050F 02510F50    022FE2C5 D9C7C5C9 40D9C1C3 C8D4C1D5   * .................SERGEI RACHMAN*
+000240   C9D5D6E5 40404040 40404000 3456422F    01900F08 075F0000 0F01344F E2C1D4E4   *INOV       .................SAMU*
+000260   C5D340C2 C1D9C2C5 D9404040 40404040    40404040 40044232 233F0102 9F08000F   *EL BARBER            ...........*
+000280   03123F25 400FD1D6 C8D540E3 C1E5C5D5    C5D94040 40404040 40404040 40404002   *.... .JOHN TAVENER             .*
+0002A0   6466120F 02200F08 000F0150 9F90025F    C8C5D9C2 C5D9E340 E5D6D540 D2C1D9C1   *................HERBERT VON KARA*
+0002C0   D1C1D540 40404040 40006550 023F0237    5F02825F 03415F07 085FD4E2 E3C9E2D3   *JAN      .................MSTISL*
+0002E0   C1E540D9 D6E2E3D9 D6D7D6E5 C9C3C840    40404001 3899322F 02295F08 050F0212   *AV ROSTROPOVICH    .............*
+000300   5F00000F C8C5D5D9 E8D240E2 E9C5D9E8    D5C74040 40404040 40404040 40094966   *....HENRYK SZERYNG           ...*
+000320   277F0202 0F07867F 00079F21 023FE3D6    D540D2D6 D6D7D4C1 D5404040 40404040   *..............TON KOOPMAN       *
+000340   40404040 40404005 2348245F 01525F08    050F0251 0F50022F D5C9D2D6 D3C1E4E2   *       .................NIKOLAUS*
+000360   40C8C1D9 D5D6D5C3 D6E4D9E3 40404040    40013456 322F0190 0F08075F 00000F01   * HARNONCOURT     ...............*
+000380   344FD1D6 E2C5D7C8 40C8C1E8 C4D54040    40404040 40404040 40404003 4032233F   *..JOSEPH HAYDN             . ...*
+0003A0   01029F08 000F0312 3F25400F D4C9C3C8    C1C5D340 C8C1E8C4 D5404040 40404040   *.......... .MICHAEL HAYDN       *
+0003C0   40404040 40046465 120F0220 0F08000F    01509F90 025FD4C9 C3C8C5D3 40E2C3C8   *     .................MICHEL SCH*
+0003E0   E6C1D3C2 C5404040 40404040 40404003    6560023F 02375F02 825F0341 5F07085F   *WALBE          .................*
+000400   C6C5D9C5 D5C340C6 D9C9C3E2 C1E84040    40404040 40404040 40013870 432F0229   *FERENC FRICSAY           .......*
+000420   5F08050F 02125F00 000FC2C5 D9D5C1D9    C440C8C1 C9E3C9D5 D2404040 40404040   *..........BERNARD HAITINK       *
+000440   40404001 4963277F 02020F07 867F0007    9F21023F C7C5D6D9 C740E2D6 D3E3C940   *   .................GEORG SOLTI *
+000460   40404040 40404040 40404040 40082344    245F0152 5F08050F 02510F50 022FC6D9   *             .................FR*
+000480   C9E3E940 D9C5C9D5 C5D94040 40404040    40404040 40404007 3446327F 01900F08   *ITZ REINER             .........*
+0004A0   075F0000 0F01344F D1C1E2C3 C8C140C8    C5C9C6C5 E3E94040 40404040 40404040   *........JASCHA HEIFETZ          *
+0004C0   40064033 233F0102 9F08000F 03123F25    400FC4C1 E5C9C440 D6C9E2E3 D9C1D2C8   * . ............. .DAVID OISTRAKH*
+0004E0   40404040 40404040 40404005 1465120F    02200F08 000F0150 9F90025F C1D5D5C5   *           .................ANNE*
+000500   40E2D6D7 C8C9C540 D4E4E3E3 C5D94040    40404040 40081560 023F0237 5F02825F   * SOPHIE MUTTER       ...........*
+000520   03415F07 085FD3C5 D6D5C1D9 C440C2C5    D9D5E2E3 C5C9D540 40404040 40404001   *......LEONARD BERNSTEIN        .*
+000540   3370322F 02295F08 050F0212 5F00000F    C7C5D6D9 C7C540C6 D9C5C4D9 C9C340C8   *................GEORGE FREDRIC H*
+000560   C1D5C4C5 D3404040 40024966 277F0202    0F07867F 00079F21 023FC6D9 C1D5E940   *ANDEL    .................FRANZ *
+000580   E2C3C8E4 C2C5D9E3 40404040 40404040    40404004 2233245F 01525F08 050F0251   *SCHUBERT           .............*
+0005A0   0F50022F C6D9C5C4 C5D9C9C3 D240C6C5    D5D5C5D3 D3404040 40404040 40037452   *....FREDERICK FENNELL        ...*
+0005C0   322F0190 0F08075F 00000F01 344FD4C1    D9E3C8C1 40C1D9C7 C5D9C9C3 C8404040   *..............MARTHA ARGERICH   *
+0005E0   40404040 40404002 2235533F 01029F08    000F0312 3F25400F C3D3C1E4 C4C9D640   *       ............... .CLAUDIO *
+000600   C1C2C2C1 C4D64040 40404040 40404040    40006455 660F0220 0F08000F 01509F90   *ABBADO           ...............*
+000620   025FC2C5 D3C140C2 C1D9E3D6 D2404040    40404040 40404040 40404000 6564453F   *..BELA BARTOK              .....*
+000640   02375F02 825F0341 5F07085F C5E4C7C5    D540D1D6 C3C8E4D4 40404040 40404040   *............EUGEN JOCHUM        *
+000660   40404040 40013873 322F0229 5F08050F    02125F00 000FC8C5 C3E3D6D9 40C2C5D9   *     .................HECTOR BER*
+000680   D3C9D6E9 40404040 40404040 40404001    4964377F 02020F07 867F0007 9F21023F   *LIOZ           .................*
+0006A0   E6C9D3D3 C9C1D440 E2C3C8E4 D4C1D540    40404040 40404040 40092222 245F0152   *WILLIAM SCHUMAN          .......*
+0006C0   5F08050F 02510F50 022FD9D6 C2C5D9E3    40E2C3C8 E4D4C1D5 D5404040 40404040   *..........ROBERT SCHUMANN       *
+0006E0   40404000 3454367F 01900F08 075F0000    0F01344F E3C9D3D3 40C5E4D3 C5D5E2D7   *   .................TILL EULENSP*
+000700   C9C5C7C5 D3404040 40404040 40094882    233F0102 9F08000F 03123F25 400FC4D6   *IEGEL        ............... .DO*
+000720   D540D1E4 C1D54040 40404040 40404040    40404040 40404009 6865120F 02200F08   *N JUAN                 .........*
+000740   000F0150 9F90025F C8C1D5E2 40C2D9C9    D5D2C5D9 40404040 40404040 40404040   *........HANS BRINKER            *
+000760   40008560 023F0237 5F02825F 03415F07    085FE5C9 C3E3D6D9 40C8E4C7 D6404040   * .................VICTOR HUGO   *
+000780   40404040 40404040 40404008 3870322F    02295F08 050F0212 5F00000F D3D6D9C9   *           .................LORI*
+0007A0   D540D4C1 C1E9C5D3 40404040 40404040    40404040 40017966 277F0202 0F07867F   *N MAAZEL             ...........*
+0007C0   00079F21 023FD9C9 C3C3C1D9 C4D640D4    E4E3C940 40404040 40404040 40404004   *......RICCARDO MUTI            .*
+0007E0   2345242F 01525F08 050F0251 0F50022F    C3C1D9D3 40D4C1D9 C9C140E5 D6D540E6   *................CARL MARIA VON W*
+000800   C5C2C5D9 40404040 40043456 322F0190    0F08075F 00000F01 344FC7E4 E2E3C1E5   *EBER     .................GUSTAV*
+000820   40D4C1C8 D3C5D940 40404040 40404040    40404003 4032233F 01029F08 000F0312   * MAHLER            . ...........*
+000840   3F25400F D2C1D9D3 40C2D6C8 D4404040    40404040 40404040 40404040 40066465   *.. .KARL BOHM                ...*
+000860   120F0220 0F08000F 01509F90 025FD7C9    C5D9D9C5 40C2D6E4 D3C5E940 40404040   *..............PIERRE BOULEZ     *
+000880   40404040 40404000 6560023F 02375F02    825F0341 5F07085F E6C9D3D3 C940C2D6   *       .................WILLI BO*
+0008A0   E2D2D6E5 E2D2E840 40404040 40404040    40013870 322F0229 5F08050F 02125F00   *SKOVSKY          ...............*
+0008C0   000FD3E4 C4E6C9C7 40E5C1D5 40C2C5C5    E3C8D6E5 C5D54040 40404000 4966277F   *..LUDWIG VAN BEETHOVEN     .....*
+0008E0   02020F07 867F0007 9F21023F C7C1C5E3    C1D5D640 C4D6D5C9 E9C5E3E3 C9404040   *............GAETANO DONIZETTI   *
+000900   40404040 40003345 245F0152 5F08050F    02510F50 022FC7C9 C1C3D6D4 D640D7E4   *     .................GIACOMO PU*
+000920   C3C3C9D5 C9404040 40404040 40404000    3456422F 01900F08 075F0000 0F01344F   *CCINI          .................*
+000940   C7C9E4E2 C5D7D7C5 40E5C5D9 C4C94040    40404040 40404040 40084232 233F0102   *GIUSEPPE VERDI           .......*
+000960   9F08000F 03123F25 400FD1D6 D540E5C9    C3D2C5D9 E2404040 40404040 40404040   *........ .JON VICKERS           *
+000980   40404006 6466120F 02200F08 000F0150    9F90025F D1D6C1D5 40E2E4E3 C8C5D9D3   *   .................JOAN SUTHERL*
+0009A0   C1D5C440 40404040 40404040 40056550    023F0237 5F02825F 03415F07 085FD3E4   *AND          .................LU*
+0009C0   C3C9C1D5 D640D7C1 E5C1D9D6 E3E3C940    40404040 40404001 3899322F 02295F08   *CIANO PAVAROTTI        .........*
+0009E0   050F0212 5F00000F C1D9E3E4 D9D640E3    D6E2C3C1 D5C9D5C9 40404040 40404040   *........ARTURO TOSCANINI        *
+000A00   40094966 277F0202 0F07867F 00079F21    023FD2D3 C1E4E240 E3C5D5D5 E2E3C5C4   * .................KLAUS TENNSTED*
+000A20   E3404040 40404040 40404000 2348245F    01525F08 050F0251 0F50022F C4D6D540   *T          .................DON *
+000A40   C7C9D6E5 C1D5D5C9 40404040 40404040    40404040 40013456 322F0190 0F08075F   *GIOVANNI             ...........*
+000A60   00000F01 344FD1D6 C8D540D7 C8C9D3C9    D740E2D6 E4E2C140 40404040 40404003   *......JOHN PHILIP SOUSA        .*
+000A80   4032233F 01029F08 000F0312 3F25400F    C4D4C9E3 D9C940E2 C8D6E2E3 C1D2D6E5   * ............. .DMITRI SHOSTAKOV*
+000AA0   C9C3C840 40404040 40046465 120F0220    0F08000F 01509F90 025FC7C9 E4D3C9D6   *ICH      .................GIULIO*
+000AC0   40C3C5E2 C1D9C540 40404040 40404040    40404000 6560023F 02375F02 825F0341   * CESARE            .............*
+000AE0   5F07085F D7C9C5D9 D9C540C6 D6E4D9D5    C9C5D940 40404040 40404040 40013870   *....PIERRE FOURNIER          ...*
+000B00   432F0229 5F08050F 02125F00 000FD4C1    D9C9C140 C3C1D3D3 C1E24040 40404040   *..............MARIA CALLAS      *
+000B20   40404040 40404001 4963277F 02020F07    867F0007 9F21023F C1D9C1D4 40D2C8C1   *       .................ARAM KHA*
+000B40   E3C3C8C1 E3E4D9C9 C1D54040 40404040    40012344 245F0152 5F08050F 02510F50   *TCHATURIAN       ...............*
+000B60   022FD3C5 D6E240D1 C1D5C1C3 C5D24040    40404040 40404040 40404001 3446327F   *..LEOS JANACEK             .....*
+000B80   01900F08 075F0000 0F01344F C1D5E3D6    D5C9D540 C4E5D6D9 C1D24040 40404040   *............ANTONIN DVORAK      *
+000BA0   40404040 40094033 233F0102 9F08000F    03123F25 400FD1D6 C8D540C1 C4C1D4E2   *     . ............. .JOHN ADAMS*
+000BC0   40404040 40404040 40404040 40404000    1465120F 02200F08 000F0150 9F90025F   *               .................*
+000BE0   D1D6C8D5 40C3C1C7 C5404040 40404040    40404040 40404040 40061560 023F0237   *JOHN CAGE                .......*
+000C00   5F02825F 03415F07 085FD1D6 E2C5D7C8    40D1D6D5 C7C5D540 40404040 40404040   *..........JOSEPH JONGEN         *
+000C20   40404001 3370322F 02295F08 050F0212    5F00000F C2D6C8E4 E2D3C1E5 40D4C1D9   *   .................BOHUSLAV MAR*
+000C40   E3C9D5E4 40404040 40404040 40024966    277F0202 0F07867F 00079F21 023FC9C7   *TINU         .................IG*
+000C60   D6D940E2 E3D9C1E5 C9D5E2D2 E8404040    40404040 40404000 2233245F 01525F08   *OR STRAVINSKY          .........*
+000C80   050F0251 0F50022F D7C9C5D9 D9C540D4    D6D5E3C5 C1E44040 40404040 40404040   *........PIERRE MONTEAU          *
+000CA0   40033452 322F0190 0F08075F 00000F01    344FC4C9 D4C9E3D9 C940D4C9 E3D9D6D7   * .................DIMITRI MITROP*
+000CC0   D6E4D3D6 E2404040 40404003 2235533F    01029F08 000F0312 3F25400F E2C5D9C7   *OULOS      ............... .SERG*
+000CE0   C540D2D6 E4E2E2C5 E5C9E3E9 D2E84040    40404040 40046455 660F0220 0F08000F   *E KOUSSEVITZKY       ...........*
+000D00   01509F90 025FD2C1 D9D6D340 E2E9E8D4    C1D5D6E6 E2D2C940 40404040 40404005   *......KAROL SZYMANOWSKI        .*
+000D20   6564453F 02375F02 825F0341 5F07085F    C3C1D9D3 40D5C9C5 D3E2C5D5 40404040   *................CARL NIELSEN    *
+000D40   40404040 40404040 40003873 322F0229    5F08050F 02125F00 000FD1C5 C1D540E2   *         .................JEAN S*
+000D60   C9C2C5D3 C9E4E240 40404040 40404040    40404000 4964377F 02020F07 867F0007   *IBELIUS            .............*
+000D80   9F21023F C7C5D6D9 C7C540C5 D5C5E2C3    E4404040 40404040 40404040 40022222   *....GEORGE ENESCU            ...*
+000DA0   245F0152 5F08050F 02510F50 022FC6D9    C1D5D240 D4C1D9E3 C9D54040 40404040   *..............FRANK MARTIN      *
+000DC0   40404040 40404003 3454367F 01900F08    075F0000 0F01344F D4C1D9C3 C5D340C4   *       .................MARCEL D*
+000DE0   E4D7D9C5 40404040 40404040 40404040    40014882 233F0102 9F08000F 03123F25   *UPRE             ...............*
+000E00   400FD4C1 E4D9C9C3 C540D9C1 E5C5D340    40404040 40404040 40404001 6865120F   * .MAURICE RAVEL            .....*
+000E20   02200F08 000F0150 9F90025F C3D3C1E4    C4C540C4 C5C2E4E2 E2E84040 40404040   *............CLAUDE DEBUSSY      *
+000E40   40404040 40068560 023F0237 5F02825F    03415F07 085FD4D6 C4C5E2E3 40D4E4E2   *     .................MODEST MUS*
+000E60   E2D6D9C7 E2D2E840 40404040 40404008    3870322F 02295F08 050F0212 5F00000F   *SORGSKY        .................*
+000E80   C1D3C5E7 C1D5C4C5 D940E9C5 D4D3C9D5    E2D2E840 40404040 40017966 277F0202   *ALEXANDER ZEMLINSKY      .......*
+000EA0   0F07867F 00079F21 023FC7C5 D6D9C7C5    40C7C5D9 E2C8E6C9 D5404040 40404040   *..........GEORGE GERSHWIN       *
+000EC0   40404000 2345242F 01525F08 050F0251    0F50022F C6C5D9D9 E4C3C3C9 D640C2E4   *   .................FERRUCCIO BU*
+000EE0   E2D6D5C9 40404040 40404040 40073456    322F0190 0F08075F 00000F01 344FC5E4   *SONI         .................EU*
+000F00   C7C5D5C5 40E8E2C1 E8C54040 40404040    40404040 40404006 4032233F 01029F08   *GENE YSAYE             . .......*
+000F20   000F0312 3F25400F C6D9C1D5 E940D3C9    E2E9E340 40404040 40404040 40404040   *...... .FRANZ LISZT             *
+000F40   40006465 120F0220 0F08000F 01509F90    025FC6D9 C5C4D9C9 C340C3C8 D6D7C9D5   * .................FREDRIC CHOPIN*
+000F60   40404040 40404040 40404000 6560023F    02375F02 825F0341 5F07085F C4C1D5C9   *           .................DANI*
+000F80   C5D340C2 C1D9C5D5 C2D6C9D4 40404040    40404040 40013870 322F0229 5F08050F   *EL BARENBOIM         ...........*
+000FA0   02125F00 000FD9C9 C3C8C1D9 C440E6C1    C7D5C5D9 40404040 40404040 40404001   *......RICHARD WAGNER           .*
+000FC0   4966277F 02020F07 867F0007 9F21023F    C6D9C1D5 C3C9E240 D7D6E4D3 C5D5C340   *................FRANCIS POULENC *
+000FE0   40404040 40404040 40033345 245F0152    5F08050F 02510F50 022FD1D6 C8C1D5D5   *         .................JOHANN*
+001000   40E6D6D3 C6C7C1D5 C740C7D6 C5E3C8C5    40404000 3456422F 01900F08 075F0000   * WOLFGANG GOETHE   .............*
+001020   0F01344F C1D9D5D6 D3C440E2 C3C8D6C5    D5C2C5D9 C7404040 40404040 40044232   *....ARNOLD SCHOENBERG        ...*
+001040   233F0102 9F08000F 03123F25 400FC1D3    C2C1D540 C2C5D9C7 40404040 40404040   *............ .ALBAN BERG        *
+001060   40404040 40404004 6466120F 02200F08    000F0150 9F90025F C1D5E3D6 D540E6C5   *       .................ANTON WE*
+001080   C2C5D9D5 40404040 40404040 40404040    40076550 023F0237 5F02825F 03415F07   *BERN             ...............*
+0010A0   085FC7E4 E2E3C1E5 40D2D3C9 D4E34040    40404040 40404040 40404001 3899322F   *..GUSTAV KLIMT             .....*
+0010C0   02295F08 050F0212 5F00000F C4C1D9C9    E4E240D4 C9D3C8C1 E4C44040 40404040   *............DARIUS MILHAUD      *
+0010E0   40404040 40004966 277F0202 0F07867F    00079F21 023FC1D9 E3C8E4D9 40C8D6D5   *     .................ARTHUR HON*
+001100   C5C7C7C5 D9404040 40404040 40404007    2348245F 01525F08 050F0251 0F50022F   *EGGER          .................*
+001120   D1D6E2C5 D7C840C3 C1D5E3C5 D3D6E4C2    C5404040 40404040 40013456 322F0190   *JOSEPH CANTELOUBE        .......*
+001140   0F08075F 00000F01 344FC1C1 D9D6D540    C3D6D7D3 C1D5C440 40404040 40404040   *..........AARON COPLAND         *
+001160   40404003 4032233F 01029F08 000F0312    3F25400F D1D6E2C5 D7C840E2 E9C9C7C5   *   . ............. .JOSEPH SZIGE*
+001180   E3C94040 40404040 40404040 40046465    120F0220 0F08000F 01509F90 025FC5D3   *TI           .................EL*
+0011A0   D3C140C6 C9E3E9C7 C5D9C1D3 C4404040    40404040 40404003 6560023F 02375F02   *LA FITZGERALD          .........*
+0011C0   825F0341 5F07085F D1D6E2C5 D7C8C9D5    C540C2C1 D2C5D940 40404040 40404040   *........JOSEPHINE BAKER         *
+0011E0   40013870 432F0229 5F08050F 02125F00    000FD1C1 C3D8E4C5 E240C9C2 C5D9E340   * .................JACQUES IBERT *
+001200   40404040 40404040 40404000 4963277F    02020F07 867F0007 9F21023F C5C4E6C1   *           .................EDWA*
+001220   D9C440C5 D3C7C1D9 40404040 40404040    40404040 40002344 245F0152 5F08050F   *RD ELGAR             ...........*
+001240   02510F50 022FC2C5 D5D1C1D4 C9D540C2    D9C9E3E3 C5D54040 40404040 40404000   *......BENJAMIN BRITTEN         .*
+001260   3446327F 01900F08 075F0000 0F01344F    E6C9D3D3 C9C1D440 E6C1D3E3 D6D54040   *................WILLIAM WALTON  *
+001280   40404040 40404040 40034033 233F0102    9F08000F 03123F25 400FD9C1 D3D7C840   *         . ............. .RALPH *
+0012A0   E5C1E4C7 C8C1D540 E6C9D3D3 C9C1D4E2    40404004 1465120F 02200F08 000F0150   *VAUGHAN WILLIAMS   .............*
+0012C0   9F90025F D7C5E3C5 D940E6C1 D9D3D6C3    D2404040 40404040 40404040 40051560   *....PETER WARLOCK            ...*
+0012E0   023F0237 5F02825F 03415F07 085FC5C4    C7C1D940 E5C1D9C5 E2C54040 40404040   *..............EDGAR VARESE      *
+001300   40404040 40404001 3370322F 02295F08    050F0212 5F00000F E2C5D9C7 C5C940D7   *       .................SERGEI P*
+001320   D9D6D2D6 C6C9C5E5 40404040 40404040    40024966 277F0202 0F07867F 00079F21   *ROKOFIEV         ...............*
+001340   023FC3C8 C1D9D3C5 E240C9E5 C5E24040    40404040 40404040 40404006 2233245F   *..CHARLES IVES             .....*
+001360   01525F08 050F0251 0F50022F C5D9C9C3    C840E6D6 D3C6C7C1 D5C740D2 D6D9D5C7   *............ERICH WOLFGANG KORNG*
+001380   D6D3C440 40073452 322F0190 0F08075F    00000F01 344FD4C1 D5E4C5D3 40C4C540   *OLD  .................MANUEL DE *
+0013A0   C6C1D3D3 C1404040 40404040 40404008    2235533F 01029F08 000F0312 3F25400F   *FALLA          ............... .*
+0013C0   C8C1D5E2 40D9C9C3 C8E3C5D9 40404040    40404040 40404040 40096455 660F0220   *HANS RICHTER             .......*
+0013E0   0F08000F 01509F90 025FD1D6 E2C5C640    E2E3D9C1 E4E2E240 40404040 40404040   *..........JOSEF STRAUSS         *
+001400   40404009 6564453F 02375F02 825F0341    5F07085F D1D6C8C1 D5D540E2 E3D9C1E4   *   .................JOHANN STRAU*
+001420   E2E240C9 40404040 40404040 40013873    322F0229 5F08050F 02125F00 000FE9E4   *SS I         .................ZU*
+001440   C2C9D540 D4C5C8E3 C1404040 40404040    40404040 40404001 4964377F 02020F07   *BIN MEHTA              .........*
+001460   867F0007 9F21023F C5C4C9E3 C840D7C9    C1C64040 40404040 40404040 40404040   *........EDITH PIAF              *
+001480   40012222 245F0152 5F08050F 02510F50    022FD3C9 D3C940C2 D6E4D3C1 D5C7C5D9   * .................LILI BOULANGER*
+0014A0   40404040 40404040 40404001 3454367F    01900F08 075F0000 0F01344F C7E4E2E3   *           .................GUST*
+0014C0   C1E540C8 D6D3E2E3 40404040 40404040    40404040 40055882 233F0102 9F08000F   *AV HOLST             ...........*
+0014E0   03123F25 400FD1D6 C8C1D5D5 40E2E3D9    C1E4E2E2 40C9C940 40404040 40404000   *.... .JOHANN STRAUSS II        .*
+001500   6865120F 02200F08 000F0150 9F90025F    D7C5D9C3 E840C7D9 C1C9D5C7 C5D94040   *................PERCY GRAINGER  *
+001520   40404040 40404040 40008560 023F0237    5F02825F 03415F07 085FC5C4 E4C1D9C4   *         .................EDUARD*
+001540   40E2E3D9 C1E4E2E2 40404040 40404040    40404000 3870322F 02295F08 050F0212   * STRAUSS           .............*
+001560   5F00000F C5D9D5C5 E2E340C3 C8C1E4E2    E2D6D540 40404040 40404040 40017966   *....ERNEST CHAUSSON          ...*
+001580   277F0202 0F07867F 00079F21 023FF5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *..............555555555555555555*
+0015A0   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*
+  LINES    0015C0-001940    SAME AS ABOVE
+001960   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F0F1   *55555555555555555555555555555501*
+001980   F8F7F540 40404040 40404040 40404040    40404040 40404040 40404040 40404040   *875                             *
+0019A0   40404040 40404040 40404040 40404040    40404040 40404040 40404040 40404040   *                                *
+0019C0   40404040 40404040 40404040 4040F5F5    90ECD00C 18CF41E0 C07450E0 D00850D0   *              55................*
+0019E0   E00418DE 98231000 E000C0BC 00504770    C05AF247 2019C0BC F224201E C0C4F224   *..................2.....2....D2.*
+001A00   2021C0C9 F2242024 C0CEF224 2027C0D3    D2182000 C0D8FA20 3000C070 4120202A   *...I2.....2....LK....Q..........*
+001A20   E000C0BC 005047F0 C01E1BFF 58D0D004    58E0D00C 980CD014 07FEF5F5 F5F5F5F5   *.......0..................555555*
+001A40   1CF5F5F5 F5F5F5F5 00000080 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *.5555555....55555555555555555555*
+001A60   F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5    F5F5F5F5 F5F5F5F5 F5F5F5F5 F5F5F5F5   *55555555555555555555555555555555*
+001A80   F5F5F5F5 F5F5F5F5 F5F5F5F5 F1F7F9F6    F6F2F7F7 F0F2F0F2 F0F0F7F8 F6F7F0F0   *55555555555517966277020200786700*
+001AA0   F0F7F9F2 F1F0F2F3 C5D9D5C5 E2E340C3    C8C1E4E2 E2D6D540 40404040 40404040   *07921023ERNEST CHAUSSON         *

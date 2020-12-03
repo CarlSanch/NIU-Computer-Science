@@ -1,0 +1,42 @@
+Assignment 1
+25/25
+
+Assignment 2
+53/60
+2) -4 (no hexadecimal answers)
+﻿﻿4) c. -1﻿﻿﻿
+4) d. -1﻿﻿
+6) c. -1
+
+Assignment 3
+65.50/75
+-7.5 (10%) Late
+-2 Part C: ST 2,48(,15)    ﻿﻿﻿﻿﻿XDUMP ﻿﻿﻿﻿44(,15),8
+
+Assignment 4
+22/30
+-6 (20%) 2 days late
+﻿10) -1﻿
+14) -1
+
+Assignment 5 
+77/125
+-24 ﻿(20%) 2 days ﻿late
+-20 missing ﻿﻿gross pay amount, federal withholding amount, state withholding amount, and new pay amount﻿﻿﻿﻿﻿
+-4 incorrect total state withholding and total net pay
+
+Assignment 6
+60/75
+-14 (20%) 2 days late
+-1 column header/footer are not single-space
+
+Assignment 7
+36/50
+-10 (20%) 2 days late
+-2 No trailing zeros or decimals for number less than 1.00
+-2 Incorrect format for gross pay amount
+
+Assignment 8
+0/100
+
+Assignment 9

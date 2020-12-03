@@ -1,0 +1,133 @@
+                   J E S 2  J O B  L O G  --  S Y S T E M  2 9 6 4  --  N O D E  S V S C J E S 2        
+
+ 
+15.36.05 JOB03730 ---- THURSDAY,  17 SEP 2020 ----
+15.36.05 JOB03730  IRR010I  USERID KC03GED  IS ASSIGNED TO THIS JOB.
+15.36.05 JOB03730  ICH70001I KC03GED  LAST ACCESS AT 15:35:51 ON THURSDAY, SEPTEMBER 17, 2020
+15.36.05 JOB03730  $HASP373 KC03GEDA STARTED - INIT 2    - CLASS A        - SYS 2964
+15.36.05 JOB03730  $HASP395 KC03GEDA ENDED - RC=0000
+
+------ JES2 JOB STATISTICS ------
+
+
+  17 SEP 2020 JOB EXECUTION DATE
+
+
+           53 CARDS READ
+
+
+          105 SYSOUT PRINT RECORDS
+
+
+            0 SYSOUT PUNCH RECORDS
+
+
+           10 SYSOUT SPOOL KBYTES
+
+
+         0.00 MINUTES EXECUTION TIME
+!! END OF JES SPOOL FILE !!
+       1 //KC03GEDA JOB ,'C. SANCHEZ',MSGCLASS=H                                 JOB03730
+       2 //JSTEP01  EXEC PGM=ASSIST                                                      
+       3 //CEEOPTS DD *                                                                  
+       4 //STEPLIB  DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR                               
+       5 //SYSPRINT DD SYSOUT=*                                                          
+       6 //SYSIN    DD *                                                                 
+       7 //                                                                              
+!! END OF JES SPOOL FILE !!
+ICH70001I KC03GED  LAST ACCESS AT 15:35:51 ON THURSDAY, SEPTEMBER 17, 2020
+IEFA111I KC03GEDA IS USING THE FOLLOWING JOB RELATED SETTINGS:
+         SWA=ABOVE,TIOT SIZE=32K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+IEF236I ALLOC. FOR KC03GEDA JSTEP01
+IEF237I JES2 ALLOCATED TO CEEOPTS
+IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+IEF237I JES2 ALLOCATED TO SYSPRINT
+IEF237I JES2 ALLOCATED TO SYSIN
+IEF142I KC03GEDA JSTEP01 - STEP WAS EXECUTED - COND CODE 0000
+IEF285I   KC03GED.KC03GEDA.JOB03730.D0000101.?         SYSIN         
+IGD104I KC00NIU.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB 
+IEF285I   KC03GED.KC03GEDA.JOB03730.D0000103.?         SYSOUT        
+IEF285I   KC03GED.KC03GEDA.JOB03730.D0000102.?         SYSIN         
+IEF373I STEP/JSTEP01 /START 2020261.1536
+IEF032I STEP/JSTEP01 /STOP  2020261.1536 
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+        VIRT:   584K  SYS:   244K  EXT:        0K  SYS:    12192K
+        ATB- REAL:                  4128K  SLOTS:                     0K
+             VIRT- ALLOC:      13M SHRD:       0M
+IEF375I  JOB/KC03GEDA/START 2020261.1536
+IEF033I  JOB/KC03GEDA/STOP  2020261.1536 
+        CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC    
+!! END OF JES SPOOL FILE !!
+
+*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT            
+
+                                                                                                                                    
+
+                                                                                                               PAGE    1            
+
+  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT                                                                          
+                                      1 *****************************************************************                           
+                                      2 *                                                               *                           
+                                      3 *  CSCI 360-2             ASSIGNMENT 3C              FALL 2020  *                           
+                                      4 *                                                               *                           
+                                      5 *  DEVELOPER NAME: CARLOS SANCHEZ                               *                           
+                                      6 *  DATE DUE:  09/16/2020                                        *                           
+                                      7 *                                                               *                           
+                                      8 *  Replace KC03nnn above with your KC-ID assigned to you by     *                           
+                                      9 *  your instructor.  DO NOT LEAVE OUT THE CAPITAL LETTER A AT   *                           
+                                     10 *  THE END OF YOUR KC-ID!  Also, put your name in all capital   *                           
+                                     11 *  letters in the first line where it says 'your name here'.    *                           
+                                     12 *                                                               *                           
+                                     13 *  Note that this documentation box does not go past column 65! *                           
+                                     14 *                                                               *                           
+                                     15 *****************************************************************                           
+                                     16 *        COL. 10                                                                            
+                                     17 *        |     COL. 16                                                                      
+                                     18 *        |     |                                                                            
+                                     19 *        v     v                                                                            
+000000                               20 ASSIGN3C CSECT                                                                              
+                                     21 *                                                                                           
+000000 5820 F028            00028    22          L     2,40(,15)     LOAD NUM1 INTO REGISTER 2                                      
+000004 5840 F02C            0002C    23          L     4,44(,15)     LOAD NUM2 INTO REGISTER4                                       
+000008 1B24                          24          SR    2,4           SUBTRACT CONTENTS                                              
+00000A 5020 F02C            0002C    25          ST    2,44(,15)     STORE REGISTER 2 INTO RESULT1                                  
+                                     26 *                                                                                           
+00000E 5860 F028            00028    27          L     6,40(,15)     LOAD NUM1 INTO REGISTER 6                                      
+000012 5880 F02C            0002C    28          L     8,44(,15)     LOAD NUM2 INTO REGISTER 8                                      
+000016 1A86                          29          AR    8,6           ADD CONTENTS 6 INTO 8                                          
+000018 5080 F034            00034    30          ST    8,52(,15)     STORE REGISTER 8 INTO RESULT2                                  
+                                     31 *                                                                                           
+00001C E160 0000 0000 00000          32          XDUMP ,             DUMP ALL 16 REGISTERS                                          
+                                     33 *                                                                                           
+000022 07FE                          34          BCR   B'1111',14    UNCONDITIONAL RETURN TO ADDRESS                                
+                                     35 *                                                                                           
+                                     36          LTORG               LITERAL ORGANIZATION                                           
+                                     37 *                                                                                           
+000028 000000C5                      38 NUM1     DC    F'197'                                                                       
+00002C 00000059                      39 NUM2     DC    F'89'                                                                        
+000030                               40 RESULT1  DS    F                                                                            
+000034                               41 RESULT2  DS    F                                                                            
+                                     42 *                                                                                           
+                                     43          END   ASSIGN3C                                                                     
+
+***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS                                                                         
+
+*** DYNAMIC CORE AREA USED:  LOW:    1104 HIGH:     420 LEAVING:  492044 FREE BYTES. AVERAGE:       34 BYTES/STMT ***               
+
+*** ASSEMBLY TIME =    0.000 SECS,    44000 STATEMENTS/SEC ***                                                                      
+
+*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***                          
+
+BEGIN XSNAP - CALL     1 AT E0000022 USER REGISTERS                                                                                 
+
+ REGS 0-7      F4F4F4F4    F4F4F4F4    0000006C    F4F4F4F4    00000059    F4F4F4F4    000000C5    F4F4F4F4                         
+ REGS 8-15     00000131    F4F4F4F4    F4F4F4F4    F4F4F4F4    F4F4F4F4    00000038    FFFE7960    00000000                         
+
+                                                                                                                                    
+
+*** EXECUTION TIME =    0.000 SECS.        10 INSTRUCTIONS EXECUTED -    10000 INSTRUCTIONS/SEC ***                                 
+
+*** FIRST CARD NOT READ: NO CARDS READ:FILE UNOPENED                                                                                
+
+*** AM004 - NORMAL USER TERMINATION BY RETURN ***                                                                                   
+!! END OF JES SPOOL FILE !!
