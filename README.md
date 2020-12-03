@@ -15,3 +15,7 @@ Instructor: Michael Papka
 Instructor: Geoffrey Decker
 ###### Overview
 
+
+## SIUe - Lost Files
+###### Overview
+This is a folder containing programming from my time at Southern Illinois University - Edwardsville. I learned to program in Java at my time there, so all the programs here are in Java. I used BlueJay and NetBeans to code all my projects.
