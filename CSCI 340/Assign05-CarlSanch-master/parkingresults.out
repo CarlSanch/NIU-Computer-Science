@@ -1,0 +1,63 @@
+Car 1 with license plate "ABC 1234" is arrived.
+
+Car 2 with license plate "XYZ 9999" is arrived.
+
+Car 3 with license plate "ALICE 1" is arrived.
+
+Car 4 with license plate "1234567" is arrived.
+
+Car 3 with license plate "ALICE 1" is departed,
+    car was moved 1 time in the garage.
+
+Car 5 with license plate "GEORGE 5" is arrived.
+
+Car 6 with license plate "UV 2" is arrived.
+
+Car 7 with license plate "XC 344" is arrived.
+
+Car 8 with license plate "ZZZ 1111" is arrived.
+
+Car 4 with license plate "1234567" is departed,
+    car was moved 1 time in the garage.
+
+Car 2 with license plate "XYZ 9999" is departed,
+    car was moved 3 times in the garage.
+
+Car 1 with license plate "ABC 1234" is departed,
+    car was moved 4 times in the garage.
+
+Car 9 with license plate "MARYANN" is arrived.
+
+Car 10 with license plate "FUNNY 33" is arrived.
+
+Car 8 with license plate "ZZZ 1111" is departed,
+    car was moved 1 time in the garage.
+
+Car 11 with license plate "WHO IS" is arrived.
+
+Car 12 with license plate "J RIPPER" is arrived.
+
+Car 13 with license plate "CEM 1" is arrived.
+
+Car 14 with license plate "Z123" is arrived.
+
+Car 15 with license plate "QQ 99" is arrived.
+
+Car 7 with license plate "XC 344" is departed,
+    car was moved 2 times in the garage.
+
+Car 16 with license plate "1" is arrived.
+
+Car 17 with license plate "11" is arrived.
+    But the garage is full!
+
+'X': invalid action!
+
+Car 9 with license plate "MARYANN" is departed,
+    car was moved 1 time in the garage.
+
+Car 6 with license plate "UV 2" is departed,
+    car was moved 4 times in the garage.
+
+No car with license plate "XXX 123" in garage.
+
