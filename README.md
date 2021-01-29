@@ -23,16 +23,16 @@ In-depth study of assembler language programming on a third-generation computer,
 
 
 ## CSCI 463 - Computer Architecture and Systems Organization
-Instructor:
+Instructor: John Winans
 ###### Overview
-TBA
+Organization and use of computer systems. Basic concepts and examples from microcomputers and networks, peripheral components, data communications, and the relationship between hardware components and the operating system.
 
 
 
 ## CSCI 467 - Introduction to Software Engineering
-Instructor:
+Instructor: Jon Lehuta
 ###### Overview
-TBA
+Phases of the systems development life cycle and the tools used by the analyst in planning, specifying, and implementing a complex computer-based system. Related topics include documentation standards, interaction with users, and design of interfaces. Assignments include at least one major group project.
 
 
 
