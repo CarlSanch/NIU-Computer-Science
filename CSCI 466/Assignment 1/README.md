@@ -1,6 +1,12 @@
 CSCI 466 Assignment 1
+
+
 ER Diagram - Fitness Tracker (50pts)
+
+
 The Goal
+
+
 You are being employed by a company that offers a fitness tracking service. They are working on a phone app
 that will allow the user to track what they eat, as well as when/how they work out. Another employee will be
 designing the user interface, but you are responsible for designing the database. Design an ER diagram
@@ -8,7 +14,11 @@ to fulfill this goal, making sure to meet all of the requirements. All entities 
 identifier specified. If a surrogate key is used, explain why a natural key was not appropriate. In the interests
 of saving space, attributes that are not part of an identifier may be omitted from the diagram, but they should
 be included and explained in that portion of your submission. (See “What to turn in?” below.)
+
+
 Requirements
+
+
 • Every user will have an account, and all of their meals and workouts will be linked to this account.
 • To track weight loss, the user will update their weight periodically. This data must be retained.
 • The serving size will be some number of units (grams, ounces, Tbsp, cups, lbs, etc.). There will be
@@ -42,7 +52,10 @@ These same foods will be used to track their eating.
 in order to track the activity.
 • A line graph of user weight over time.
 
+
 What to turn in?
+
+
 You should turn in, via Blackboard, the following:
 • A PDF file containing the diagram you’ve drawn. You can draw this in any graphics program. If you
 must, you may draw it by hand and scan it, but it must be legible. Credit will not be given for portions
