@@ -1,0 +1,15 @@
+Assignment 5:
+88/100
+-5 (#5) Incorrect column names, syntax errors.
+-5 (#6) Incorrect column names, syntax errors.
+-2 (#8) Did not match similar names.
+Suggestion for (#11) You should count the names, not the rows themselves.
+
+Assignment 6:
+47/50
+
+-2 Did not drop the tables in the correct order.
+-1 Did not create 6 rows for the Dog table.
+
+Assignment 7:
+--/100
