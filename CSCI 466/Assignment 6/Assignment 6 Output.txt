@@ -1,0 +1,105 @@
+MariaDB [z1729554]> source /home/hopper/z1729554/csci466/assign6.sql
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails
+Query OK, 0 rows affected (0.076 sec)
+
+ERROR 1050 (42S01): Table 'Dog' already exists
+Query OK, 1 row affected, 1 warning (0.083 sec)
+
+Query OK, 1 row affected, 1 warning (0.025 sec)
+
+Query OK, 1 row affected, 1 warning (0.025 sec)
+
+Query OK, 1 row affected, 1 warning (0.025 sec)
+
+Query OK, 1 row affected, 1 warning (0.025 sec)
+
+Query OK, 0 rows affected (0.242 sec)
+
+Query OK, 1 row affected (0.025 sec)
+
+Query OK, 1 row affected (0.025 sec)
+
+Query OK, 1 row affected (0.025 sec)
+
+Query OK, 1 row affected (0.025 sec)
+
+Query OK, 1 row affected (0.025 sec)
+
+Query OK, 1 row affected (0.025 sec)
+
+Query OK, 1 row affected (0.025 sec)
+
+Query OK, 1 row affected (0.025 sec)
+
+Query OK, 1 row affected (0.025 sec)
+
++------------+---------+------+-----+---------+----------------+
+| Field      | Type    | Null | Key | Default | Extra          |
++------------+---------+------+-----+---------+----------------+
+| visit_id   | int(11) | NO   | PRI | NULL    | auto_increment |
+| dog_id     | int(11) | NO   | MUL | NULL    |                |
+| visit_date | date    | NO   |     | NULL    |                |
++------------+---------+------+-----+---------+----------------+
+3 rows in set (0.018 sec)
+
++----------+--------+------------+
+| visit_id | dog_id | visit_date |
++----------+--------+------------+
+|        1 |      2 | 2020-06-21 |
+|        2 |      1 | 2020-07-11 |
+|        3 |      2 | 2020-08-04 |
+|        4 |      1 | 2020-09-09 |
+|        5 |      5 | 2020-10-29 |
+|        6 |      3 | 2020-11-20 |
+|        7 |      4 | 2020-12-10 |
+|        8 |      4 | 2021-01-26 |
+|        9 |      5 | 2021-02-11 |
++----------+--------+------------+
+9 rows in set (0.001 sec)
+
+Query OK, 0 rows affected (0.319 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+Query OK, 1 row affected (0.047 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+Query OK, 1 row affected (0.025 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+Query OK, 1 row affected (0.025 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+Query OK, 1 row affected (0.025 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+Query OK, 1 row affected (0.025 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+Query OK, 1 row affected (0.036 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+Query OK, 1 row affected (0.022 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+Query OK, 1 row affected (0.025 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+Query OK, 1 row affected (0.042 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
++----------+--------+------------+------------+
+| visit_id | dog_id | visit_date | visit_bill |
++----------+--------+------------+------------+
+|        1 |      2 | 2020-06-21 |        200 |
+|        2 |      1 | 2020-07-11 |        324 |
+|        3 |      2 | 2020-08-04 |        120 |
+|        4 |      1 | 2020-09-09 |         80 |
+|        5 |      5 | 2020-10-29 |       1278 |
+|        6 |      3 | 2020-11-20 |         98 |
+|        7 |      4 | 2020-12-10 |        248 |
+|        8 |      4 | 2021-01-26 |        439 |
+|        9 |      5 | 2021-02-11 |         80 |
++----------+--------+------------+------------+
+9 rows in set (0.001 sec)
+
+MariaDB [z1729554]> \t
