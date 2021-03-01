@@ -1,3 +1,54 @@
+Assignment 1:
+48/50
+-1 for not underlining date identifier for workouts.
+-1 the relationship between user and weightloss is not one-to-many because the user can track 1lbs to many lbs. It's one-to-many because the user can record many instances of their weight at different times.
+
+I also noticed you got mixed up with the word "identifier" and "attribute" in your explanation. I think you meant to say "attributes" when describing the 5 attributes for food/beverage.
+
+You should also make micro/macro nutrients an entity not an attribute because they have daily recommended values, amounts, type, etc. If there is a way to describe a thing in multiple ways, it's going to be an entity.
+
+Otherwise, you are on the right track!
+
+
+Assignment 2:
+16/50
+-1 for #1 1NF, EmpID must also be part of the super key since it functionally determines the other half of the tuple in 1NF.
+-3 for #1 2NF, there is no such thing as mulitple primary keys, you must have meant to say EmpID, MgrID, and ProjID are all part of the primary key, which is still not true since this would only apply for 1NF. 2NF requires you to decompose the 1NF relation into separate realtions because of the partial key dependencies that will cause update anomolies.
+
+-1 for 3NF #1, it is not 3NF because there is a transitiive dependency among MgrID and MgrName.
+-4 for 1NF #2, it is not 1NF becuase there is no super key underlined/indicated.
+-4 for 2NF #2, it is not in 2NF becuase there are partial key dependencies to be fixed.
+-3 for 3NF #2 after 2NF it's already 3NF.
+-4 for 1NF #3, tuple is not atomic, no super key identified.
+-4 for 2NF #3, no partial key dependencies fixed or addressed.
+-4 for 3NF #3, no transitive dependencies fixed or addressed.
+-1 for 1NF #4, patient_id and filldate is also part of the primary key.
+-2 for 2NF #4, there are other partial key dependencies that need to be fixed for 2NF.
+-3 for 3NF, after 2NF this is in 3NF since there are no transitive dependencies.
+
+Assignment 3:
+97/100
+-1 state is also part of the foreign key in Store.
+-1 state is also part of the foreign key in "Is Stored In".
+-1 storeID should not be a foreign key in City because City is on the one side of the relationship.
+
+
+Assignment 4:
+58/100
+-1  ER Diagram: You shouldn’t have two one-to-many relationships between the same entities (Exchange, Order), it is redundant (They will convert to the same exact relation).
+-1  ER Diagram: Symbol should be part of the primary key in Stock.
+-1  ER Diagram: Buy and Sell should not be attributes for Stock, the Stock entity does not represent the purchase, it represents the stock itself.
+-1  ER Diagram: Missing date/Time attribute for “Transaction”, the handout states to show when the transaction was made.
+-2  ER Diagram: If there are both market orders and limit orders, you need to explicitly show what type of order it is but either making sub-types of orders or supplying a type attribute.
+-1  ER Diagram: Missing “pending” attribute for Orders.
+-2  ER Diagram: Exchange is missing a primary key.
+-1  Relational Schema (Exchange): Customer is not part of the primary key. 
+-1  Relational Schema (Bank): Bank does not absorb the Account primary key. 
+-1  Relational Schema (Orders): Orders is missing a foreign key.
+-5  Relational Schema: missing your two many-to-many relations. And not specifying the home relations for each foreign key.
+-25 Missing SQL file.
+
+
 Assignment 5:
 88/100
 -5 (#5) Incorrect column names, syntax errors.
@@ -5,11 +56,13 @@ Assignment 5:
 -2 (#8) Did not match similar names.
 Suggestion for (#11) You should count the names, not the rows themselves.
 
+
 Assignment 6:
 47/50
 
 -2 Did not drop the tables in the correct order.
 -1 Did not create 6 rows for the Dog table.
+
 
 Assignment 7:
 --/100
