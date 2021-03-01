@@ -1,0 +1,22 @@
+Assignment 1:
+10/10
+
+Assignment 2:
+--/10
+
+Assignment 3:
+1/20
+
+-4 two day delay 
+-3 no doxygen-style boxes
+-1 using mem.reserve() and/or capacity() instead of mem.resize() and mem.size()
+-5 no output at all from at least one test run
+-2 WARNING with the wrong addresses
+-2 whitespace differences
+-2 incorrect get() output
+
+Assignment 4: 
+--/20
+
+Assignment 5:
+--/20
