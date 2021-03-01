@@ -1,0 +1,206 @@
+show tables' at line 1
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(15) | NO   | PRI | NULL    |       |
+| count  | int(11)     | YES  |     | NULL    |       |
+| gender | char(1)     | NO   | PRI | NULL    |       |
+| year   | smallint(6) | NO   | PRI | NULL    |       |
+| place  | char(2)     | NO   | PRI | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.001 sec)
+
++------+
+| year |
++------+
+| 1913 |
+| 1920 |
+| 1921 |
+| 1922 |
+| 1923 |
+| 1925 |
+| 1926 |
+| 1927 |
+| 1929 |
+| 1930 |
+| 1931 |
+| 1932 |
+| 1933 |
+| 1934 |
+| 1935 |
+| 1936 |
+| 1937 |
+| 1938 |
+| 1939 |
+| 1940 |
+| 1941 |
+| 1943 |
+| 1944 |
+| 1945 |
+| 1946 |
+| 1947 |
+| 1948 |
+| 1949 |
+| 1950 |
+| 1951 |
+| 1952 |
+| 1953 |
+| 1954 |
+| 1955 |
+| 1956 |
+| 1957 |
+| 1958 |
+| 1959 |
+| 1960 |
+| 1961 |
+| 1962 |
+| 1963 |
+| 1964 |
+| 1965 |
+| 1966 |
+| 1967 |
+| 1968 |
+| 1969 |
+| 1970 |
+| 1971 |
++------+
+50 rows in set (0.000 sec)
+
+ERROR 1064 (42000) at line 9 in file: '/home/hopper/z1729554/csci466/assign5.sql': You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'case when (sex) = 'M' then 'Chad' else 'Pat' end limit 50' at line 1
+ERROR 1064 (42000) at line 11 in file: '/home/hopper/z1729554/csci466/assign5.sql': You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where year = '1984') limit 50' at line 1
++----------------------+
+| count(distinct name) |
++----------------------+
+|                 1583 |
+|                 6501 |
+|                 4825 |
+|                 5500 |
+|                18986 |
+|                 4953 |
+|                 3531 |
+|                 2622 |
+|                 1677 |
+|                10820 |
+|                 9467 |
+|                 2870 |
+|                 4257 |
+|                 2874 |
+|                10847 |
+|                 6392 |
+|                 4359 |
+|                 5178 |
+|                 6957 |
+|                 5185 |
+|                 5455 |
+|                 2146 |
+|                 8567 |
+|                 5374 |
+|                 6301 |
+|                 5486 |
+|                 2188 |
+|                 8598 |
+|                 2282 |
+|                 3383 |
+|                 1756 |
+|                 7428 |
+|                 3333 |
+|                 2861 |
+|                14101 |
+|                 9066 |
+|                 5548 |
+|                 4143 |
+|                 8851 |
+|                 1795 |
+|                 5632 |
+|                 2289 |
+|                 6750 |
+|                16768 |
+|                95025 |
+|                 4489 |
+|                 7093 |
+|                 1358 |
+|                 5922 |
+|                 5369 |
+|                 3261 |
+|                 1524 |
++----------------------+
+52 rows in set (1.537 sec)
+
++--------+-------+------+
+| name   | count | year |
++--------+-------+------+
+| Carlos |     5 | 1913 |
+| Carlos |    10 | 1920 |
+| Carlos |     6 | 1921 |
+| Carlos |     6 | 1922 |
+| Carlos |     7 | 1923 |
+| Carlos |     6 | 1925 |
+| Carlos |     9 | 1926 |
+| Carlos |     8 | 1927 |
+| Carlos |     8 | 1929 |
+| Carlos |    13 | 1929 |
+| Carlos |    11 | 1930 |
+| Carlos |     8 | 1931 |
+| Carlos |     6 | 1932 |
+| Carlos |    14 | 1932 |
+| Carlos |     5 | 1933 |
+| Carlos |     9 | 1933 |
+| Carlos |    10 | 1934 |
+| Carlos |     6 | 1935 |
+| Carlos |     7 | 1936 |
+| Carlos |    12 | 1937 |
+| Carlos |    15 | 1938 |
+| Carlos |     9 | 1939 |
+| Carlos |    10 | 1940 |
+| Carlos |     7 | 1941 |
+| Carlos |    10 | 1943 |
+| Carlos |    10 | 1944 |
+| Carlos |    17 | 1945 |
+| Carlos |     5 | 1946 |
+| Carlos |    11 | 1946 |
+| Carlos |     7 | 1947 |
+| Carlos |    13 | 1948 |
+| Carlos |     8 | 1949 |
+| Carlos |    13 | 1949 |
+| Carlos |    15 | 1950 |
+| Carlos |    22 | 1951 |
+| Carlos |     6 | 1952 |
+| Carlos |    16 | 1952 |
+| Carlos |    11 | 1953 |
+| Carlos |    16 | 1954 |
+| Carlos |    19 | 1955 |
+| Carlos |     6 | 1956 |
+| Carlos |    22 | 1956 |
+| Carlos |    18 | 1957 |
+| Carlos |    19 | 1958 |
+| Carlos |     6 | 1959 |
+| Carlos |    17 | 1959 |
+| Carlos |     7 | 1960 |
+| Carlos |    29 | 1960 |
+| Carlos |     6 | 1961 |
+| Carlos |     6 | 1961 |
++--------+-------+------+
+50 rows in set (0.000 sec)
+
++----------------------+
+| count(distinct name) |
++----------------------+
+|                14737 |
++----------------------+
+1 row in set (0.000 sec)
+
++----------+
+| count(*) |
++----------+
+|  7601706 |
++----------+
+1 row in set (0.000 sec)
+
++----------+
+| count(*) |
++----------+
+|    65212 |
++----------+
+1 row in set (0.000 sec)
+
+Outfile disabled.
