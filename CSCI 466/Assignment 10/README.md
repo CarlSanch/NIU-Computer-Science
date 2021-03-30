@@ -54,41 +54,71 @@ program should show the menu again and allow the user to choose a new option to 
 Notes
 ▶ The grading for this will be done by compiling and running this program on turing and/or hopper. If your program does not
 compile and run properly on turing and hopper, you will not receive credit, so make sure to test it there.
+
 ▶ If your program needs any flags other than the ones used in the examples of gcc/g++ in the slides in order to compile, you
 need to let us know when you submit.
+
 ▶ Don’t forget to document your code.
+
 ▶ It is not a requirement that every feature be implemented with a single query. You can break the tasks down into smaller
 queries if you find it makes solving the problem easier.
+
 ▶ As always, you should be submitting your own work. Do not try to cheat or plagiarize other people’s programs.
-CSCI 466 Assignment 10 (Spring 2021) 2 of 2
+
+
 What to turn in?
 Submit, through Blackboard, the following:
-▶ Your C++ source code, in a file called books.cc.
-▶ Any other source code or header files your program needs in order to compile.
-Schema for henrybooks
 
+▶ Your C++ source code, in a file called books.cc.
+
+▶ Any other source code or header files your program needs in order to compile.
+
+Schema for henrybooks
 
 For your convenience, I have included information on the schema of henrybooks below:
 Table Field Type Null Key Default Extra
+
 Author AuthorNum decimal(2,0) NO PRI NULL
+
 AuthorLast char(12) YES NULL
+
 AuthorFirst char(10) YES NULL
+
 Book BookCode char(4) NO PRI NULL
+
 Title char(40) YES NULL
+
 PublisherCode char(3) YES NULL
+
 Type char(3) YES NULL
+
 Price decimal(8,2) YES NULL
+
 Paperback char(1) YES NULL
+
 Branch BranchNum decimal(2,0) NO PRI NULL
+
 BranchName char(50) YES NULL
+
 BranchLocation char(50) YES NULL
+
 NumEmployees decimal(2,0) YES NULL
+
 Inventory BookCode char(4) NO PRI
+
 BranchNum decimal(2,0) NO PRI 0
+
 OnHand decimal(2,0) YES NULL
+
 Publisher PublisherCode char(3) NO PRI NULL
+
 PublisherName char(25) YES NULL
+
 City char(20) YES NULL
+
 Wrote BookCode char(4) NO PRI
+
 AuthorNum decimal(2,0) NO PRI 0
+
 Sequence decimal(2,0) YES NULL
+
