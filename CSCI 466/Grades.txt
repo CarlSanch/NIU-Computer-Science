@@ -65,4 +65,18 @@ Assignment 6:
 
 
 Assignment 7:
---/100
+95/100
+
+-5 Image does not redirect to another website
+
+Assignment 8:
+100/100
+
+Assignment 9:
+75/75
+
+Assignment 10:
+80/100
+
+-10 Author name search does not work correctly.
+-10 Book title search does not work correctly.
