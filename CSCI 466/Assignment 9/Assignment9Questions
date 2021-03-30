@@ -1,0 +1,19 @@
+Question 1.2) What is the result of running the SELECT statement. Why?
+
+	- Nothing shows up when runnin the SELECT statement since no changes were ever updated or pushed to the database in the first session.
+
+Question 1.5) What is the result of the SELECT statement above?
+
+	- Every change made from both sessions has been sucessfully pushed to the database and therefore is shown when using the SELECT statement.
+
+Question 2.4) What is the result of the SELECT statement, and why?
+
+	- pk = 2 had it's data changed as well as pk = 4. pk = 3 was also deleted
+
+Question 2.5) What is the result of the SELECT statement, and why?
+
+	- Every change made in the current session was undone and we are left with the same table that we started with
+
+Question 3) What happened here?
+
+	- There was a lock timeout due to two sessions trying to alter the same row in the tabla (pk = 1)
