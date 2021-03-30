@@ -1,0 +1,306 @@
+<html>
+
+<head><title>Carlos Sanchez z1729554</title>
+
+    <style>
+
+        .p1 {
+
+            padding: 15px 15px 15px 15px;
+
+            background-color: #d8d6d6;
+
+            margin-top: 0px;
+
+        }
+
+        
+
+        .p2 {
+
+            padding: 20px;
+
+            background-color: #ee7c7c;
+
+        }
+
+        
+
+        .p3 {
+
+            padding: 15px;
+
+            background-image: linear-gradient(to bottom right, rgb(55, 96, 26), rgb(24, 16, 90), rgb(3, 7, 6));
+
+        }
+
+        
+
+        .left,
+
+        .right {
+
+            width: 45%;
+
+            float: left;
+
+            padding: 2%;
+
+        }
+
+        
+
+        .container {
+
+            width: 62%;
+
+            margin: 0 auto;
+
+        }
+
+        
+
+        .head {
+
+            text-align: center;
+
+        }
+
+        
+
+        .form {
+
+            margin: 30px 0;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="head">
+	    <!--The page should have a heading at the top that says “CSCI 466 Assignment 7”-->
+
+            <h1>CSCI 466 Assignment 7</h1>
+
+        </div>
+
+        <div>
+
+            <div class="left">
+
+                <span>Image with external link</span>
+
+                <!--There must be an image on your page, and that image must be part of a link to another site.-->
+
+                <img src="https://is3-ssl.mzstatic.com/image/thumb/Purple124/v4/2a/c3/78/2ac378f7-2037-fe37-7ad6-cb358ed07059/source/256x256bb.jpg"/><img src="wendys.jpg" height="10" width="30%" alt="image"></a>
+
+            </div>
+
+            <!-- There must be three paragraphs worth of text. Have each in its own paragraph element. Be creative.-->
+
+            <div class="right">
+
+                <p class="p1">
+
+                   Wendy's is an American international fast food restaurant chain founded by Dave Thomas on November 15, 1969, in Columbus, Ohio. The company moved its headquarters to Dublin, Ohio, on January 29, 2006. As of December 31, 2018, Wendy's was the world's third-largest hamburger fast-food chain with 6,711 locations, following Burger King and McDonald's.	   
+
+                </p>
+
+                <p class="p2"> On April 24, 2008, the company announced a merger with Triarc Companies Inc., a publicly-traded company and the parent company of Arby's. Wendy's headquarters remained in Dublin. Following the merger, Triarc became known as Wendy's/Arby's Group, and later as The Wendy's Company.
+
+                </p>
+
+                <p class="p3">
+
+                    The chain is known for its square hamburgers, sea salt fries, and Frosty, a form of soft-serve ice cream mixed with starches. Wendy's menu consists primarily of hamburgers, chicken sandwiches, French fries, and beverages such as the Frosty.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div>
+
+            <h1>My Favorite Foods</h1>
+
+            <!--An ordered list of your top ten favorite foods must be shown.-->
+
+            <ol>
+
+                <li>Wendy's Double Stack</li>
+
+                <li>Wendy's Frosty</li>
+
+                <li>Wendy's Chicken Sandwich</li>
+
+                <li>Wendy's Jr. Baconator</li>
+
+                <li>Wendy's Dave's Double</li>
+
+                <li>Wendy's Fries</li>
+
+                <li>Wendy's Spicy Crispy Chicken</li>
+
+                <li>Wendy's Spicy Nuggets</li>
+
+                <li>Wendy's Baconator</li>
+
+                <li>Wendy's Chili</li>
+
+            </ol>
+
+        </div>
+
+        <div>
+
+            <!--Include an HTML table element that shows a 5 × 5 multiplication table, with rows and columns for the numbers 1, 2, 4, 8, 9 .-->
+
+            <table width="50%" border="1">
+
+                <caption>Table 5x5 Multiplication</caption>
+
+                <tr>
+
+                    <td>1</td>
+
+                    <td>2</td>
+
+                    <td>3</td>
+
+                    <td>4</td>
+
+                    <td>5</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>6</td>
+
+                    <td>7</td>
+
+                    <td>8</td>
+
+                    <td>9</td>
+
+                    <td>10</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>11</td>
+
+                    <td>12</td>
+
+                    <td>13</td>
+
+                    <td>14</td>
+
+                    <td>15</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>16</td>
+
+                    <td>17</td>
+
+                    <td>18</td>
+
+                    <td>19</td>
+
+                    <td>20</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>21</td>
+
+                    <td>22</td>
+
+                    <td>23</td>
+
+                    <td>24</td>
+
+                    <td>25</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div class="form">
+
+            <h1>Wendy's Form</h1>
+
+            <!--There must be a form element meeting the following requirements:-->
+
+            <form action="http://students.cs.niu.edu/~z035690/asnsubmit2021.php" method="post">
+
+                <input type="text" name="carrot"><br>
+
+                <br>
+
+                <!--three checkboxes-->
+
+                <input type="checkbox" id="pizza" name="Food" value="Pizza">
+
+                <label for="pizza"> Pizza</label><br>
+
+                <input type="checkbox" id="Tacos" name="food" value="Tacos">
+
+                <label for="Tacos"> Tacos</label><br>
+
+                <input type="checkbox" id="Burgers" name="food" value="Burgers">
+
+                <label for="Burgers"> Burgers</label><br>
+
+                <br>
+
+                <!--three Radio button, Z radio button is checked -->
+
+                <input type="radio" id="x" name="xyz" value="X">
+
+                <label for="x">X</label><br>
+
+                <input type="radio" id="y" name="xyz" value="Y">
+
+                <label for="y">Y</label><br>
+
+                <input type="radio" id="z" name="xyz" value="Z" checked="checked">
+
+                <label for="z">Z</label><br>
+
+                <br>
+
+                <!--hidden field-->
+
+                <!--put your zid in value attribute-->
+
+                <input type="hidden" name="zid" value="z1729554">
+
+                <br>
+
+                <!--submit button -->
+
+                <input type="submit" name="submit" value="Carpe dime">
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
