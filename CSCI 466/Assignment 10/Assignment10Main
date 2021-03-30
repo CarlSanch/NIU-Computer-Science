@@ -1,0 +1,144 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	Name: Carlos Sanchez	z-id: z1729554
+//
+//	Course: CSCI - 466	Assignment #10	Semester: Spring 2021
+//
+//	Due: Friday, March 26, 2021
+//
+//	Note: Really wish the professor would have showed us some code instead of re-reading old slides 
+//			where he can't even bother to fix simple mistakes from 20 years ago :/ 
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#include <iostream>
+#include <string>
+#include <mysql.h>
+
+using namespace std;
+
+#define SERVER "courses"
+#define USER "z1729554"
+#define PASSWORD "1996Mar12"
+#define DATABASE "henrybooks"
+
+int main(int argc, char **argv)
+{
+	MYSQL_RES *res_set; /* pointer to receive the return value.*/
+    MYSQL_ROW row; /* variable for rows. */
+
+	bool menuExit = false;
+	int input ;
+	int query;
+	int x = 0;
+	string authorIn;
+	string titleIn;
+
+	MYSQL *connect, mysql;
+	connect = mysql_init(&mysql); // Initialize the instance
+	connect = mysql_real_connect(connect,SERVER,USER,PASSWORD,DATABASE,0,NULL,0);
+	if(connect == NULL)	//if can't connect, error check and return
+	{
+    	cout << "ERROR";
+    	cout << mysql_error(&mysql)<<endl;
+    	return 1;
+	}
+
+	if(connect)
+    {
+		while (menuExit == false)
+		{
+			cout << "*  Welcome to the Book Database!  *" << endl;
+			cout << "Please select an option with a number" << endl;
+			cout << "1) Book List" << endl << "2) Author Search" << endl << "3) Title Search" << endl << "4) Quit" << endl << endl;
+			cin >>  input;
+
+					if (input == 1)
+					{
+						mysql_query(connect,"select b.title, b.Price, a.AuthorFirst, a.AuthorLast from Book b, Author a, Wrote w where w.AuthorNum = a.AuthorNum and b.BookCode = w.BookCode;");
+						res_set = mysql_store_result(connect); /* a cursor*/
+
+						while ((row = mysql_fetch_row(res_set)) != NULL) /*not end of cursor */
+						{
+							cout << row[0] << " " << row[1] << " " << row[2] << " " << row[3] << endl << endl << endl;
+						}
+
+						mysql_free_result(res_set);
+						mysql_close(connect);
+					}
+
+					else if (input == 2)
+					{
+						cout << "Which Author?:  ";
+						cin >> authorIn;
+
+						authorIn = "select b.bookcode, b.title, a.AuthorLast, a.AuthorFirst, b.Price from Book b, Author a, where a.AuthorLast =  " + authorIn;
+						query = mysql_query(connect, authorIn.c_str());
+
+						if(query != 0)
+						{   
+							cout << "Could not find any author by that name" << endl;
+							return 1;
+						}
+
+						res_set = mysql_store_result(connect);
+						while ((row = mysql_fetch_row(res_set)) != NULL) /*not end of cursor */
+						{
+							cout << row[0] << endl;
+						}
+						
+						mysql_free_result(res_set);
+						mysql_close(connect);
+
+					}
+
+					else if (input == 3)
+					{
+						cout << "Which book (title)?:  ";
+						cin >> titleIn;
+
+						titleIn = "select b.BookCode, b.Title, a.AuthorLast, a.AuthorFirst, b.Price from Book b, Author a, where b.Title =  " + titleIn;
+						query = mysql_query(connect, titleIn.c_str());
+
+						if(query != 0)
+						{   
+							cout << "Could not find any author by that name" << endl;
+							return 1;
+						}
+
+						res_set = mysql_store_result(connect);
+						while ((row = mysql_fetch_row(res_set)) != NULL) /*not end of cursor */
+						{
+							cout << row[0] << endl;
+						}
+
+						mysql_free_result(res_set);
+						mysql_close(connect);
+
+					}
+
+					else if (input == 4)
+					{
+					cout << "Goodbye" << endl;
+					exit(0);
+					}
+
+					else
+					{
+						cout << "invalid option! Please try again" << endl;
+						cin >> input;
+					}
+		}
+
+		mysql_library_end();
+	}
+
+
+
+	else
+	{
+		cout << "Unable to connect to MariaDB" << endl;
+		exit(1);
+	}
+	return 0;
+}
