@@ -1,0 +1,142 @@
+MariaDB [z1729554]> use z1729554;
+Database changed
+MariaDB [z1729554]> create table Taco(pk int primary key, data char(15));
+Query OK, 0 rows affected (0.277 sec)
+
+MariaDB [z1729554]> start transaction;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [z1729554]> insert into Taco values(1, 'dataA');
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [z1729554]> insert into Taco values(2, 'dataB');
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [z1729554]> insert into Taco values(3, 'dataC');
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [z1729554]> use z1729554;
+Database changed
+MariaDB [z1729554]> select * from Taco;
+Empty set (0.001 sec)
+
+MariaDB [z1729554]> insert into Taco values(4, 'dataD');
+Query OK, 1 row affected (0.089 sec)
+
+MariaDB [z1729554]> insert into Taco values(5, 'dataE');
+Query OK, 1 row affected (0.072 sec)
+
+MariaDB [z1729554]> commit;
+Query OK, 0 rows affected (0.047 sec)
+
+MariaDB [z1729554]> select * from Taco;
++----+-------+
+| pk | data  |
++----+-------+
+|  1 | dataA |
+|  2 | dataB |
+|  3 | dataC |
+|  4 | dataD |
+|  5 | dataE |
++----+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [z1729554]> \t
+
+MariaDB [z1729554]> select * from Taco;
++----+-------+
+| pk | data  |
++----+-------+
+|  1 | dataA |
+|  2 | dataB |
+|  3 | dataC |
+|  4 | dataD |
+|  5 | dataE |
++----+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [z1729554]> \t
+MariaDB [z1729554]> use z1729554;
+Database changed
+MariaDB [z1729554]> start transaction;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [z1729554]> delete from Taco where pk = 3;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [z1729554]> select * from Taco;
++----+-------+
+| pk | data  |
++----+-------+
+|  1 | dataA |
+|  2 | dataB |
+|  4 | dataD |
+|  5 | dataE |
++----+-------+
+4 rows in set (0.001 sec)
+
+MariaDB [z1729554]> update Taco set Data = 'changed' where pk = 2;
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [z1729554]> update Taco set Data = 'changed 2' where pk = 4;
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [z1729554]> insert into Taco values(6, 'dataF');
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [z1729554]> select * from Taco;
++----+-----------+
+| pk | data      |
++----+-----------+
+|  1 | dataA     |
+|  2 | changed   |
+|  4 | changed 2 |
+|  5 | dataE     |
+|  6 | dataF     |
++----+-----------+
+5 rows in set (0.001 sec)
+
+MariaDB [z1729554]> rollback;
+Query OK, 0 rows affected (0.091 sec)
+
+MariaDB [z1729554]> select * from Taco;
++----+-------+
+| pk | data  |
++----+-------+
+|  1 | dataA |
+|  2 | dataB |
+|  3 | dataC |
+|  4 | dataD |
+|  5 | dataE |
++----+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [z1729554]> \t
+MariaDB [z1729554]> use z1729554;
+Database changed
+MariaDB [z1729554]> start transaction;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [z1729554]> use z1729554;
+Database changed
+MariaDB [z1729554]> start transaction;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [z1729554]> update Taco set data = 'data1A' where pk = 1;
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [z1729554]> update Taco set data = 'data2B' where pk = 2;
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [z1729554]> update Taco set data = 'data5E' where pk = 5;
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [z1729554]> update Taco set data = 'data12B' where pk = 1;
+ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction
+MariaDB [z1729554]> \t
+MariaDB [z1729554]> \t
