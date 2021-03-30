@@ -5,10 +5,8 @@ Assignment 2:
 --/10
 
 Assignment 3:
-1/20
+8/20
 
--4 two day delay 
--3 no doxygen-style boxes
 -1 using mem.reserve() and/or capacity() instead of mem.resize() and mem.size()
 -5 no output at all from at least one test run
 -2 WARNING with the wrong addresses
@@ -16,7 +14,10 @@ Assignment 3:
 -2 incorrect get() output
 
 Assignment 4: 
---/20
+15/20
+
+-1 missing whitespace
+-4 dumps wrong information. (for vectors use mem.at(addr) instead of mem[addr])
 
 Assignment 5:
---/20
+--/30
