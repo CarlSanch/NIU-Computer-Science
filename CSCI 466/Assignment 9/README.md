@@ -1,10 +1,15 @@
-CSCI 466 Assignment 9 (Spring 2021)
+# CSCI 466 Assignment 9 (Spring 2021)
+
 Transactions in MariaDB (75 pts)
+
+
 Purpose
 The purpose of this assignment is to experiment with the behavior of transactions using a MariaDB database. You will need to
 use more than one MariaDB session for these to work. To do this, just open up two separate putty sessions to turing or hopper and
 log into MariaDB on each of them. Use the same name for the output file for all of the sessions – \T assign9out.txt – so that the
 output from all of your sessions ends up in the same file. When znnnnnnn is used, replace it with your own z-id.
+
+
 Part I - The Power of COMMIT (25 pts)
 1 Start your first MariaDB session, run the following SQL queries:
 \T assign9out.txt
