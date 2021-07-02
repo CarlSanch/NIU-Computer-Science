@@ -20,4 +20,15 @@ Assignment 4:
 -4 dumps wrong information. (for vectors use mem.at(addr) instead of mem[addr])
 
 Assignment 5:
---/30
+28/30
+
+-2 in your switches use return instead of break
+
+Assignment 6:
+10/10
+
+Assignment 7:
+4/10
+
+-3 code
+-3 output because of the "Segmentation fault"
