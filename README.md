@@ -42,8 +42,25 @@ Software development in a representative current database system. Extensive labo
 
 
 ## CSCI 467 - Introduction to Software Engineering
+Instructor: Raimund Ege
+(Fall 2021)
 ###### Overview
 Phases of the systems development life cycle and the tools used by the analyst in planning, specifying, and implementing a complex computer-based system. Related topics include documentation standards, interaction with users, and design of interfaces. Assignments include at least one major group project.
+
+
+
+## CSCI 470 - Programming in Java
+Instructor: Reva Freedman
+(Fall 2021)
+###### Overview
+Intermediate-level course in object-oriented programming in Java, including multi-threading, graphical applets, and Internet-based distributed client-server database applications. Extensive laboratory work.
+
+
+## CSCI 490-J - Topics in Computer Science (Computer Graphics)
+Instructor: Kirk Duffin
+(Fall 2021)
+###### Overview
+This course will provide an examination of fundamental techniques used to create 3D models in computer graphics. This is not a course on making cinematic special effects, video games, highly visual web pages, or using specific 3D modeling packages. (Although all of these areas are natural extensions of the ideas that will be presented.)
 
 
 ## SIUe - Lost Files
