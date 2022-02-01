@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=rideArray\ fileName
+comment2.target=int\ fillParkRides(Ride[],\ java.lang.String)
+comment3.params=rideArray\ numE
+comment3.target=int\ removeRide(Ride[],\ int)
+comment4.params=rideArray\ numE
+comment4.target=void\ putOnQueue(Ride[],\ int)
+numComments=5

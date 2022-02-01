@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=Queue
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Queue\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Queue()
+comment10.params=
+comment10.target=boolean\ isEmpty()
+comment2.params=size
+comment2.target=Queue(int)
+comment3.params=
+comment3.target=int\ getQueueLength()
+comment4.params=
+comment4.target=int\ getQueueMaxSize()
+comment5.params=
+comment5.target=int\ getNumberOfQueues()
+comment6.params=num
+comment6.target=void\ enqueue(int)
+comment7.params=
+comment7.target=void\ dequeue()
+comment8.params=
+comment8.target=void\ printQueue()
+comment9.params=
+comment9.target=int\ inFront()
+numComments=11
