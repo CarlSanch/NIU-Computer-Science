@@ -51,16 +51,23 @@ Phases of the systems development life cycle and the tools used by the analyst i
 
 ## CSCI 470 - Programming in Java
 Instructor: Reva Freedman
-(Fall 2021)
+(Spring 2022)
 ###### Overview
 Intermediate-level course in object-oriented programming in Java, including multi-threading, graphical applets, and Internet-based distributed client-server database applications. Extensive laboratory work.
 
 
-## CSCI 490-J - Topics in Computer Science (Computer Graphics)
-Instructor: Kirk Duffin
-(Fall 2021)
+## CSCI 490-J - Topics in Computer Science (Visual Analytics)
+Instructor: Maoyuan Sun
+(Spring 2022)
 ###### Overview
-This course will provide an examination of fundamental techniques used to create 3D models in computer graphics. This is not a course on making cinematic special effects, video games, highly visual web pages, or using specific 3D modeling packages. (Although all of these areas are natural extensions of the ideas that will be presented.)
+To tackle the onset of big data, visual analytics seeks to marry human cognition with computational analytical horsepower. The goal of this course is to introduce students the state-of-the-art of theories and models in visual analytics. Student will learn the value of interactive visualizations to support data analytics by leveraging computation with human cognition.
+
+
+## CSCI 490-J - Topics in Computer Science (Quality Assurance and Software Testing)
+Instructor: Mona Rahimi
+(Spring 2022)
+###### Overview
+To help students gain an understanding of principles and issues in software testing and analysis. Students will become familiar with various levels of testing such as unit, integration, system, performance, acceptance and stress testing. They will develop an understanding of test lifecycle planning, test design & coverage analysis, test case selection, and complexity measurements
 
 
 ## SIUe - Lost Files
