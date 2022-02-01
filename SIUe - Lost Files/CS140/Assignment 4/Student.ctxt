@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Student
+comment0.text=\r\n\ Carlos\ Sanchez\r\n\ CS\ 140-003\r\n\ Professor\ Tetzner\r\n\ Assignment\ 4\r\n
+comment1.params=person\ studentNum\ numQuizAttempts\ quiz
+comment1.target=Student(Person,\ java.lang.String,\ int,\ int[])
+comment2.params=
+comment2.target=java.lang.String\ getStudentNum()
+comment3.params=
+comment3.target=int\ getNumQuizAttempts()
+comment4.params=
+comment4.target=double\ quizAverage()
+comment5.params=
+comment5.target=void\ displayQuizzes()
+numComments=6

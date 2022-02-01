@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Main
+comment0.text=\r\n\ Carlos\ Sanchez\r\n\ CS\ 140-003\r\n\ Professor\ Tetzner\r\n\ Assignment\ 4\r\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=array\ fileName
+comment2.target=int\ loadArray(Student[],\ java.lang.String)
+comment3.params=array\ numStudents
+comment3.target=void\ printQuizReport(Student[],\ int)
+comment4.params=array\ numStudents
+comment4.target=void\ printClassReport(Student[],\ int)
+comment5.params=array\ numStudents
+comment5.target=void\ printStudentReport(Student[],\ int)
+comment6.params=array\ numStudents\ lookfor
+comment6.target=void\ searchAndPrintStudent(Student[],\ int,\ java.lang.String)
+comment7.params=array\ numStudents
+comment7.target=void\ sortClass(Student[],\ int)
+numComments=8

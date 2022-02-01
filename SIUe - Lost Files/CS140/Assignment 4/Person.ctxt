@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=Person
+comment0.text=\r\n\ Carlos\ Sanchez\r\n\ CS\ 140-003\r\n\ Professor\ Tetzner\r\n\ Assignment\ 4\r\n
+comment1.params=firstName\ lastName\ dateOfBirth
+comment1.target=Person(java.lang.String,\ java.lang.String,\ Date)
+comment2.params=
+comment2.target=java.lang.String\ getFirstName()
+comment3.params=
+comment3.target=java.lang.String\ getLastName()
+comment4.params=
+comment4.target=Date\ getDateOfBirth()
+comment5.params=fname
+comment5.target=void\ setFirstName(java.lang.String)
+comment6.params=lname
+comment6.target=void\ setLastName(java.lang.String)
+comment7.params=dob
+comment7.target=void\ setDateOfBirth(Date)
+comment8.params=month\ day\ year
+comment8.target=void\ setDateOfBirth(int,\ int,\ int)
+numComments=9
