@@ -50,7 +50,7 @@ Phases of the systems development life cycle and the tools used by the analyst i
 
 
 ## CSCI 470 - Programming in Java
-Instructor: Reva Freedman
+Instructor: James Leon
 (Spring 2022)
 ###### Overview
 Intermediate-level course in object-oriented programming in Java, including multi-threading, graphical applets, and Internet-based distributed client-server database applications. Extensive laboratory work.
