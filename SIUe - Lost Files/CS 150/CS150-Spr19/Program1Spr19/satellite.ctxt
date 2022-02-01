@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=satellite
+comment0.text=\r\n\ Carlos\ Sanchez\r\n\ Cs\ 150\ -\ 002\r\n\ Spring\ 2019\r\n\ Program\ 1\:\ Due\ Feb.\ 1st\ \r\n
+comment1.params=satName\ numOfSats\ coord
+comment1.target=satellite(java.lang.String,\ int,\ coordinates[])
+comment2.params=
+comment2.target=java.lang.String\ getSatName()
+comment3.params=
+comment3.target=int\ getNumOfSats()
+numComments=4

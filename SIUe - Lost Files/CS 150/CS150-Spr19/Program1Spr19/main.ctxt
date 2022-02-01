@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=main
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=fileName
+comment2.target=void\ loadArray(java.lang.String)
+comment3.params=sat1\ numE
+comment3.target=void\ displaySatellites(satellite,\ int)
+comment4.params=
+comment4.target=int\ satDistance()
+comment5.params=
+comment5.target=int\ satAngle()
+numComments=6

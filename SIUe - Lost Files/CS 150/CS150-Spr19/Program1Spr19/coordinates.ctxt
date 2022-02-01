@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=coordinates
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ coordinates\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=x\ y
+comment1.target=coordinates(int,\ int)
+comment2.params=
+comment2.target=int\ getXCoord()
+comment3.params=
+comment3.target=int\ getYCoord()
+numComments=4
