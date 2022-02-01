@@ -1,5 +1,5 @@
 # Computer Science Degree
-This repo contains assignments completed during my time at Northern Illinois University. I am a transfer student from Harper Community College to Southern Illinois University - Edwardsville to Northern Illinois University. I learned Java at my time at SIUe and transferred to NIU. Unfortunately my work from SIUe is lost, so this repo only contains my work as a Junior. 
+This repo contains assignments completed during my time at Northern Illinois University. I am a transfer student from Harper Community College to Southern Illinois University - Edwardsville to Northern Illinois University. I learned Java at my time at SIUe and transferred to NIU. Unfortunately my work from SIUe is lost, so this repo only contains my work as a Junior and Senior. 
 
 ## CSCI 330 - Unix and Network Programming
 Instructor: Jon Lehuta
