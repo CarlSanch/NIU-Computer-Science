@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=array
+comment2.target=int\ fillArray(VBSpikeInfo[])
+comment3.params=cougars\ numE
+comment3.target=double\ findKillsAverage(VBSpikeInfo[],\ int)
+comment4.params=cougars\ numElements\ average
+comment4.target=void\ printResults(VBSpikeInfo[],\ int,\ double)
+numComments=5
