@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=array
+comment2.target=int\ fillArray(Circle[])
+comment3.params=array\ numE
+comment3.target=void\ displayStatistics(Circle[],\ int)
+comment4.params=array\ numE
+comment4.target=double\ averageAreaCircles(Circle[],\ int)
+comment5.params=array\ numE
+comment5.target=int\ addACircle(Circle[],\ int)
+comment6.params=array\ numE
+comment6.target=void\ circlesLeftOfYAxis(Circle[],\ int)
+comment7.params=array\ numE
+comment7.target=int\ removeACircle(Circle[],\ int)
+numComments=8
