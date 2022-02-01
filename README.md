@@ -63,7 +63,7 @@ Instructor: Maoyuan Sun
 To tackle the onset of big data, visual analytics seeks to marry human cognition with computational analytical horsepower. The goal of this course is to introduce students the state-of-the-art of theories and models in visual analytics. Student will learn the value of interactive visualizations to support data analytics by leveraging computation with human cognition.
 
 
-## CSCI 490-J - Topics in Computer Science (Quality Assurance and Software Testing)
+## CSCI 490-K - Topics in Computer Science (Quality Assurance and Software Testing)
 Instructor: Mona Rahimi
 (Spring 2022)
 ###### Overview
