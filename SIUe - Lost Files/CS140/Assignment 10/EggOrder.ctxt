@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=EggOrder
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ EggOrder\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=EggOrder()
+comment2.params=name\ numDoz\ numExtra
+comment2.target=EggOrder(java.lang.String,\ int,\ int)
+comment3.params=name\ totalEggs
+comment3.target=EggOrder(java.lang.String,\ int)
+comment4.params=
+comment4.target=java.lang.String\ getCustomerName()
+comment5.params=
+comment5.target=int\ getNumDoz()
+comment6.params=
+comment6.target=int\ getNumExtra()
+comment7.params=
+comment7.target=int\ getTotalEggs()
+numComments=8
